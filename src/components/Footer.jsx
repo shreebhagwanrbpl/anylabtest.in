@@ -45,7 +45,7 @@ export default function Footer() {
           doc(
             db,
             "websites",
-            "centralbiomedicals",
+            "anylabtestin",
             "pages",
             "contact"
           )
@@ -76,7 +76,7 @@ export default function Footer() {
           doc(
             db,
             "websites",
-            "centralbiomedicals",
+            "anylabtestin",
             "districts",
             district
           )
@@ -162,12 +162,12 @@ export default function Footer() {
           <div>
 
             <h2 className="text-3xl font-bold">
-              <span className="bg-gradient-to-r from-rose-700 via-red-700 to-rose-600 bg-clip-text text-transparent">
-                Central
+              <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
+                Raj
               </span>
 
               <span className="text-slate-900">
-                {" "}Biomedicals
+                {" "}Biosis
               </span>
             </h2>
 
@@ -324,7 +324,7 @@ export default function Footer() {
           <p className="text-slate-600 text-sm">
             © 2026
             <span className="font-semibold text-rose-700">
-              {" "}Central Biomedicals
+              {" "}Raj Biosis
             </span>.
             All rights reserved.
           </p>

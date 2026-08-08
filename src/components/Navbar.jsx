@@ -53,11 +53,11 @@ export default function Navbar() {
         <Link href={makeLink("/")}>
           <h1 className="text-xl md:text-2xl font-bold">
             <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-              Central
+              Raj
             </span>
 
             <span className="text-slate-900">
-              {" "}Biomedicals
+              {" "}Biosis
             </span>
           </h1>
         </Link>

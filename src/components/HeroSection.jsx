@@ -30,7 +30,7 @@ export default function HeroSection({ city }) {
     const fetchHeroData = async () => {
       try {
         const snap = await getDoc(
-          doc(db, "websites", "centralbiomedicals", "pages", "home")
+          doc(db, "websites", "anylabtestin", "pages", "home")
         );
 
         if (snap.exists()) {
@@ -202,7 +202,7 @@ export default function HeroSection({ city }) {
           <div className="rounded-[40px] p-6 bg-white/90 backdrop-blur-xl border border-rose-100 shadow-[0_25px_70px_rgba(136,19,55,0.15)]">
             <Image
               src={CBG}
-              alt="Central Biomedical"
+              alt="Raj Biosis"
               width={1200}
               height={900}
               className="rounded-[28px] object-cover object-[20%_center] h-[350px] sm:h-[450px] lg:h-[550px] w-full transition duration-700 hover:scale-[1.03]"

@@ -69,7 +69,7 @@ export default function ProductDetails({ slug }) {
                     doc(
                         db,
                         "websites",
-                        "centralbiomedicals",
+                        "anylabtestin",
                         "pages",
                         "products"
                     )
@@ -92,7 +92,7 @@ export default function ProductDetails({ slug }) {
                     collection(
                         db,
                         "websites",
-                        "centralbiomedicals",
+                        "anylabtestin",
                         "pages",
                         "categoryproducts",
                         "categories"
@@ -193,7 +193,7 @@ export default function ProductDetails({ slug }) {
                 collection(
                     db,
                     "websitesQueries",
-                    "centralbiomedicals",
+                    "anylabtestin",
                     "productQueries"
                 ),
                 {
@@ -236,7 +236,7 @@ export default function ProductDetails({ slug }) {
                 product.title,
             brand: {
                 "@type": "Brand",
-                name: product.brand || "Central Biomedicals",
+                name: product.brand || "Raj Biosis",
             },
         }
         : null;
@@ -836,12 +836,12 @@ ${product?.desc}
 
                                     <h3 className="text-2xl font-bold mb-5">
                                         <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-                                            Why Choose Central Biomedicals in {cityName}?
+                                            Why Choose Raj Biosis in {cityName}?
                                         </span>
                                     </h3>
 
                                     <p className="text-slate-600 leading-8">
-                                        Central Biomedicals is a trusted supplier and
+                                        Raj Biosis is a trusted supplier and
                                         distributor of <strong className="text-rose-700">{product.title}</strong> in {cityName}.
                                         We provide high-quality biomedical and laboratory
                                         equipment for hospitals, pathology laboratories,
@@ -895,7 +895,7 @@ ${product?.desc}
                                     </h3>
 
                                     <p className="text-slate-600 leading-8">
-                                        Central Biomedicals supplies {product.title}
+                                        Raj Biosis supplies {product.title}
                                         in {cityName} with technical support,
                                         installation assistance and customer service
                                         for hospitals and laboratories.
@@ -913,7 +913,7 @@ ${product?.desc}
                                     </h3>
 
                                     <p className="text-slate-600 leading-8">
-                                        Central Biomedicals is a trusted dealer of
+                                        Raj Biosis is a trusted dealer of
                                         {product.title} in {cityName}. We supply
                                         biomedical equipment, laboratory instruments,
                                         diagnostic analyzers and healthcare devices
@@ -952,7 +952,7 @@ ${product?.desc}
                                     <p className="text-slate-600 leading-8">
                                         Buy high quality {product.title} in
                                         {cityName} at competitive prices.
-                                        Contact Central Biomedicals for the
+                                        Contact Raj Biosis for the
                                         latest quotation and product availability.
                                     </p>
 
@@ -1110,7 +1110,7 @@ ${product?.desc}
                                         <div className="bg-white border border-rose-100 rounded-3xl p-6 shadow-[0_10px_30px_rgba(122,31,61,0.08)] hover:shadow-[0_20px_40px_rgba(122,31,61,0.12)] transition-all duration-300">
 
                                             <h4 className="text-lg font-bold bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-                                                How can I contact Central Biomedicals?
+                                                How can I contact Raj Biosis?
                                             </h4>
 
                                             <p className="text-slate-600 mt-3 leading-8">
