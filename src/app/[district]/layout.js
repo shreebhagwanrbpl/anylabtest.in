@@ -1,17 +1,19 @@
 export async function generateMetadata({ params }) {
-
   const { district = "jaipur" } = await params;
 
   const districtName = district
     .replace(/-/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
+  const title = `Biomedical & Diagnostic Equipment Supplier in ${districtName} | CBC Machines, Analyzers & Reagents | Raj Biosis`;
+
+  const description = `Raj Biosis is the leading biomedical and laboratory equipment supplier in ${districtName}. Supplying CBC Machines, 5-Part Hematology Analyzers, Biochemistry Analyzers, Reagents, ELISA Readers and Urine Analyzers to pathology labs and hospitals in ${districtName}.`;
+
   const url = `https://anylabtest.in/${district}`;
 
   return {
-    title: `Biomedical & Diagnostic Equipment Supplier in ${districtName} | Raj Biosis`,
-
-    description: `Raj Biosis supplies diagnostic machines, laboratory equipment, reagents and biomedical products in ${districtName}.`,
+    title,
+    description,
 
     keywords: [
       `Biomedical Equipment ${districtName}`,
@@ -19,11 +21,24 @@ export async function generateMetadata({ params }) {
       `Laboratory Equipment ${districtName}`,
       `Pathology Equipment ${districtName}`,
       `Biomedical Supplier ${districtName}`,
+      `CBC Machine ${districtName}`,
+      `Hematology Analyzer ${districtName}`,
+      `Biochemistry Analyzer ${districtName}`,
+      `ELISA Reader ${districtName}`,
+      `Reagents Supplier ${districtName}`,
+      `Lab Equipment Dealer ${districtName}`,
     ],
 
     robots: {
       index: true,
       follow: true,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
+      },
     },
 
     alternates: {
@@ -31,10 +46,18 @@ export async function generateMetadata({ params }) {
     },
 
     openGraph: {
-      title: `Biomedical Equipment in ${districtName}`,
-      description: `Diagnostic laboratory equipment supplier in ${districtName}.`,
+      title,
+      description,
       url,
+      siteName: "Raj Biosis",
       type: "website",
+      locale: "en_IN",
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title,
+      description,
     },
   };
 }

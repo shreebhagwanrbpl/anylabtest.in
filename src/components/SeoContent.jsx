@@ -1,150 +1,105 @@
+import React from "react";
+import { SchemaScript } from "@/components/JsonLd";
+
 export default function SeoContent({ city = "" }) {
-    const location = city || "India";
+  const location = city || "India";
 
-    return (
-        <section className="py-20 bg-gradient-to-b from-white via-rose-50/30 to-white">
-            <div className="container-custom">
+  const homeFaqs = [
+    {
+      question: `Do you supply biomedical equipment across ${location}?`,
+      answer: `Yes, Raj Biosis supplies biomedical and laboratory equipment across ${location} and districts nationwide, ensuring prompt delivery and on-site engineer support.`,
+    },
+    {
+      question: `Which laboratory instruments do you provide in ${location}?`,
+      answer: `We provide 3-Part & 5-Part CBC Machines, Hematology Analyzers, Biochemistry Analyzers (Semi & Fully Auto), ELISA Readers, Electrolyte Analyzers, Urine Analyzers, and diagnostic reagents in ${location}.`,
+    },
+    {
+      question: `Do you offer installation, calibration, and AMC services in ${location}?`,
+      answer: `Yes, our certified biomedical engineers provide full equipment installation, optical calibration adhering to NABL standards, and Annual Maintenance Contracts (AMC/CMC) in ${location}.`,
+    },
+    {
+      question: "Who can purchase biomedical equipment from Raj Biosis?",
+      answer:
+        "Clinical diagnostic centers, pathology laboratories, government & private hospitals, medical colleges, research institutes, and healthcare facilities can purchase directly from Raj Biosis.",
+    },
+  ];
 
-                {/* Heading */}
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: homeFaqs.map((faq) => ({
+      "@type": "Question",
+      name: faq.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: faq.answer,
+      },
+    })),
+  };
 
-                <div className="mb-10">
+  return (
+    <section className="py-20 bg-gradient-to-b from-white via-rose-50/30 to-white">
+      <SchemaScript schema={faqSchema} />
+      <div className="container-custom">
+        {/* Heading */}
+        <div className="mb-10">
+          <span className="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-rose-100 to-red-100 border border-rose-200 text-[#8B2748] text-sm font-semibold shadow-sm mb-5">
+            Trusted Biomedical & Diagnostic Equipment Supplier
+          </span>
 
-                    <span className="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-rose-100 to-red-100 border border-rose-200 text-rose-700 text-sm font-semibold shadow-sm mb-5">
-                        Trusted Biomedical Supplier
-                    </span>
+          <h2 className="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
+            <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
+              Biomedical Equipment Supplier & Distributor in {location}
+            </span>
+          </h2>
 
-                    <h2 className="text-4xl lg:text-5xl font-bold leading-tight">
-                        <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-                            Biomedical Equipment Supplier in {location}
-                        </span>
-                    </h2>
+          <div className="mt-5 h-1 w-28 rounded-full bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52]"></div>
+        </div>
 
-                    <div className="mt-5 h-1 w-28 rounded-full bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52]"></div>
+        {/* Content */}
+        <div className="space-y-7 text-slate-600 leading-relaxed text-base sm:text-lg">
+          <p>
+            <strong className="text-[#8B2748]">Raj Biosis</strong> is a leading supplier of biomedical and diagnostic laboratory equipment in <strong className="text-[#8B2748]">{location}</strong>. We deliver high-precision <strong>CBC Machines</strong>, <strong>5-Part Hematology Analyzers</strong>, <strong>Semi & Fully Automated Biochemistry Analyzers</strong>, <strong>ELISA Microplate Readers</strong>, <strong>Electrolyte Analyzers</strong>, <strong>Urine Analyzers</strong>, and diagnostic reagents to pathology labs, hospitals, and diagnostic centers.
+          </p>
 
-                </div>
+          <p>
+            Our core commitment is empowering healthcare institutions across India with state-of-the-art laboratory technology. By combining certified medical hardware with high-stability diagnostic reagents and controls, we ensure clinical test reliability, low operational costs, and rapid sample turnaround.
+          </p>
 
-                {/* Content */}
+          <p>
+            In addition to equipment supply, our experienced biomedical engineers provide complete installation assistance, routine calibration adhering to quality standards, preventive maintenance, and rapid 24-48 hour breakdown repair services throughout <strong className="text-[#8B2748]">{location}</strong>.
+          </p>
 
-                <div className="space-y-7 text-slate-600 leading-8 text-lg">
+          <p>
+            Whether you are establishing a new diagnostic laboratory or upgrading existing analyzer models, Raj Biosis offers expert consultation to help you choose the best equipment for your specific daily sample volume.
+          </p>
+        </div>
 
-                    <p>
-                        Raj Biosis is a trusted supplier of biomedical
-                        and laboratory equipment in <strong className="text-rose-700">{location}</strong>.
-                        We provide CBC Machines, Hematology
-                        Analyzers, Biochemistry Analyzers,
-                        Urine Analyzers, ELISA Readers and
-                        diagnostic instruments for hospitals,
-                        pathology labs and healthcare facilities.
-                    </p>
+        {/* FAQ Section */}
+        <div className="mt-16">
+          <h3 className="text-3xl font-bold mb-8">
+            <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
+              Frequently Asked Questions (FAQ) - {location}
+            </span>
+          </h3>
 
-                    <p>
-                        Our mission is to provide reliable and
-                        high-quality laboratory equipment to
-                        healthcare professionals across India.
-                        We work with diagnostic centres,
-                        hospitals, research laboratories and
-                        medical institutions to deliver advanced
-                        biomedical solutions.
-                    </p>
-
-                    <p>
-                        We offer installation assistance,
-                        product guidance and technical support
-                        for a wide range of laboratory
-                        instruments. Whether you are setting up
-                        a new diagnostic laboratory or upgrading
-                        existing equipment, our team can help
-                        you select the right solution.
-                    </p>
-
-                    <p>
-                        Raj Biosis supplies equipment
-                        across multiple districts and cities,
-                        helping healthcare providers improve
-                        testing efficiency and diagnostic
-                        accuracy.
-                    </p>
-
-                </div>
-
-                {/* FAQ */}
-
-                <div className="mt-20">
-
-                    <h2 className="text-3xl lg:text-4xl font-bold mb-10">
-                        <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-                            Frequently Asked Questions
-                        </span>
-                    </h2>
-
-                    <div className="grid gap-6">
-
-                        <div className="rounded-3xl border border-rose-100 bg-white p-7 shadow-sm hover:shadow-lg transition-all duration-300">
-
-                            <h3 className="font-bold text-xl text-slate-900">
-                                Do you supply biomedical equipment across India?
-                            </h3>
-
-                            <p className="text-slate-600 mt-3 leading-7">
-                                Yes, we supply biomedical and laboratory
-                                equipment across multiple districts and cities.
-                            </p>
-
-                        </div>
-
-                        <div className="rounded-3xl border border-rose-100 bg-white p-7 shadow-sm hover:shadow-lg transition-all duration-300">
-
-                            <h3 className="font-bold text-xl text-slate-900">
-                                Which laboratory instruments do you provide?
-                            </h3>
-
-                            <p className="text-slate-600 mt-3 leading-7">
-                                We provide CBC Machines,
-                                Hematology Analyzers,
-                                Biochemistry Analyzers,
-                                ELISA Readers, Urine
-                                Analyzers and other
-                                diagnostic equipment.
-                            </p>
-
-                        </div>
-
-                        <div className="rounded-3xl border border-rose-100 bg-white p-7 shadow-sm hover:shadow-lg transition-all duration-300">
-
-                            <h3 className="font-bold text-xl text-slate-900">
-                                Do you provide installation support?
-                            </h3>
-
-                            <p className="text-slate-600 mt-3 leading-7">
-                                Yes, installation assistance and
-                                technical support are available
-                                depending on location and
-                                equipment type.
-                            </p>
-
-                        </div>
-
-                        <div className="rounded-3xl border border-rose-100 bg-white p-7 shadow-sm hover:shadow-lg transition-all duration-300">
-
-                            <h3 className="font-bold text-xl text-slate-900">
-                                Who can purchase biomedical equipment?
-                            </h3>
-
-                            <p className="text-slate-600 mt-3 leading-7">
-                                Hospitals, pathology labs,
-                                diagnostic centres, research
-                                laboratories and healthcare
-                                facilities can purchase
-                                equipment from us.
-                            </p>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-        </section>
-    );
+          <div className="grid md:grid-cols-2 gap-6">
+            {homeFaqs.map((faq, idx) => (
+              <div
+                key={idx}
+                className="rounded-3xl border border-rose-100 bg-white p-7 shadow-sm hover:shadow-lg transition-all duration-300"
+              >
+                <h4 className="font-bold text-lg text-slate-900">
+                  {faq.question}
+                </h4>
+                <p className="text-slate-600 text-sm mt-3 leading-relaxed">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 }

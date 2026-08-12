@@ -4,15 +4,13 @@ import Footer from "@/components/Footer";
 import { Toaster } from "react-hot-toast";
 
 export const metadata = {
-  metadataBase: new URL(
-    "https://anylabtest.in"
-  ),
+  metadataBase: new URL("https://anylabtest.in"),
 
   title:
-    "Biomedical Equipment Supplier in India | Raj Biosis",
+    "Biomedical Equipment & Diagnostic Machine Supplier in India | Raj Biosis",
 
   description:
-    "Raj Biosis supplies CBC Machines, Hematology Analyzers, Biochemistry Analyzers, ELISA Readers and laboratory equipment across India.",
+    "Raj Biosis is India's leading supplier of CBC Machines, 5-Part Hematology Analyzers, Biochemistry Analyzers, ELISA Readers, Electrolyte Analyzers, Urine Analyzers, and Diagnostic Reagents across all districts.",
 
   keywords: [
     "Biomedical Equipment Supplier",
@@ -22,14 +20,37 @@ export const metadata = {
     "Biochemistry Analyzer Supplier",
     "Diagnostic Equipment Supplier",
     "Medical Equipment Supplier India",
+    "ELISA Reader Price India",
+    "Electrolyte Analyzer Supplier",
+    "Urine Analyzer Supplier",
+    "Diagnostic Reagents Distributor",
+    "Pathology Equipment Supplier",
+    "Lab Equipment Price in India",
+    "Raj Biosis",
   ],
+
+  authors: [{ name: "Raj Biosis", url: "https://anylabtest.in" }],
+  creator: "Raj Biosis",
+  publisher: "Raj Biosis",
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 
   openGraph: {
     title:
-      "Biomedical Equipment Supplier in India | Raj Biosis",
+      "Biomedical Equipment & Diagnostic Machine Supplier in India | Raj Biosis",
 
     description:
-      "Supplier of biomedical and laboratory equipment across India.",
+      "Supplier of certified biomedical and laboratory equipment, CBC machines, analyzers, and reagents across all districts in India.",
 
     url: "https://anylabtest.in",
 
@@ -40,11 +61,11 @@ export const metadata = {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: "Raj Biosis",
+        alt: "Raj Biosis Biomedical Equipment",
       },
     ],
 
-    locale: "en_US",
+    locale: "en_IN",
     type: "website",
   },
 
@@ -52,7 +73,7 @@ export const metadata = {
     card: "summary_large_image",
 
     title:
-      "Biomedical Equipment Supplier in India | Raj Biosis",
+      "Biomedical Equipment & Diagnostic Machine Supplier | Raj Biosis",
 
     description:
       "Supplier of biomedical and laboratory equipment across India.",
@@ -65,9 +86,7 @@ export const metadata = {
   },
 };
 
-export default function RootLayout({
-  children,
-}) {
+export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className="antialiased">
