@@ -37,7 +37,7 @@ export async function generateMetadata({ params }) {
     ],
 
     alternates: {
-      canonical: url,
+      canonical: `https://anylabtest.in/items/${slug}`,
     },
 
     openGraph: {

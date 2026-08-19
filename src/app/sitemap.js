@@ -1,6 +1,4 @@
-import { db } from "@/lib/firebase";
-import { collection, getDocs, doc, getDoc } from "firebase/firestore";
-import { fetchFullCatalog } from "@/lib/data-fetcher";
+import { fetchFullCatalog, getAllCategories, getAllBrands, getDistricts } from "@/lib/data-fetcher-server";
 
 export default async function sitemap() {
   const baseUrl = "https://anylabtest.in";
@@ -8,89 +6,50 @@ export default async function sitemap() {
 
   // 1. Static Pages
   urls.push(
-    {
-      url: baseUrl,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 1.0,
-    },
-    {
-      url: `${baseUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/services`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${baseUrl}/contact`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${baseUrl}/items`,
-      lastModified: new Date(),
-      changeFrequency: "daily",
-      priority: 0.95,
-    }
+    { url: baseUrl, lastModified: new Date(), changeFrequency: "daily", priority: 1.0 },
+    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/services`, lastModified: new Date(), changeFrequency: "weekly", priority: 0.9 },
+    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: "monthly", priority: 0.8 },
+    { url: `${baseUrl}/items`, lastModified: new Date(), changeFrequency: "daily", priority: 0.95 }
   );
 
-  let districts = [];
+  // 2. Category Hub Pages
   try {
-    // 2. Fetch Districts
-    const districtSnap = await getDocs(
-      collection(db, "websites", "anylabtestin", "districts")
-    );
-    districts = districtSnap.docs.map((d) => d.data());
+    const categories = await getAllCategories();
+    categories.forEach((cat) => {
+      urls.push({
+        url: `${baseUrl}/category/${cat.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.85,
+      });
+      urls.push({
+        url: `${baseUrl}/laboratory-equipment/${cat.slug}`,
+        lastModified: new Date(),
+        changeFrequency: "weekly",
+        priority: 0.8,
+      });
+    });
   } catch (err) {
-    console.error("Error fetching districts for sitemap:", err);
+    console.error("Error generating category sitemaps:", err);
   }
 
-  // Add District Static Routes
-  districts.forEach((district) => {
-    const slug = district.slug;
-    if (!slug) return;
-
-    urls.push(
-      {
-        url: `${baseUrl}/${slug}`,
-        lastModified: new Date(),
-        changeFrequency: "daily",
-        priority: 0.85,
-      },
-      {
-        url: `${baseUrl}/${slug}/about`,
+  // 3. Brand Hub Pages
+  try {
+    const brands = await getAllBrands();
+    brands.forEach((brand) => {
+      urls.push({
+        url: `${baseUrl}/brand/${brand.slug}`,
         lastModified: new Date(),
         changeFrequency: "weekly",
-        priority: 0.7,
-      },
-      {
-        url: `${baseUrl}/${slug}/services`,
-        lastModified: new Date(),
-        changeFrequency: "weekly",
-        priority: 0.7,
-      },
-      {
-        url: `${baseUrl}/${slug}/contact`,
-        lastModified: new Date(),
-        changeFrequency: "monthly",
-        priority: 0.7,
-      },
-      {
-        url: `${baseUrl}/${slug}/items`,
-        lastModified: new Date(),
-        changeFrequency: "daily",
         priority: 0.8,
-      }
-    );
-  });
+      });
+    });
+  } catch (err) {
+    console.error("Error generating brand sitemaps:", err);
+  }
 
-  // 3. Fetch Products Catalog
+  // 4. Products Catalog
   let products = [];
   try {
     products = await fetchFullCatalog();
@@ -98,44 +57,35 @@ export default async function sitemap() {
     console.error("Error fetching full catalog for sitemap:", err);
   }
 
-  // Fallback product slugs if database fetch returns empty array
-  if (!products || products.length === 0) {
-    products = [
-      { slug: "5-part-differential-hematology-analyzer" },
-      { slug: "semi-automated-biochemistry-analyzer" },
-      { slug: "elisa-microplate-reader" },
-      { slug: "electrolyte-analyzer" },
-      { slug: "urine-analyzer" },
-      { slug: "reagents-and-calibrators" },
-    ];
-  }
-
-  const addedSlugs = new Set();
-
+  const addedProductSlugs = new Set();
   products.forEach((product) => {
-    if (!product.slug || addedSlugs.has(product.slug)) return;
-    addedSlugs.add(product.slug);
+    if (!product.slug || addedProductSlugs.has(product.slug)) return;
+    addedProductSlugs.add(product.slug);
 
-    // Main Product URL
     urls.push({
       url: `${baseUrl}/items/${product.slug}`,
       lastModified: new Date(),
       changeFrequency: "weekly",
-      priority: 0.8,
+      priority: 0.85,
     });
+  });
 
-    // District x Product URLs
+  // 5. High-Value District Hub Pages
+  try {
+    const districts = await getDistricts();
     districts.forEach((district) => {
       if (!district.slug) return;
 
       urls.push({
-        url: `${baseUrl}/${district.slug}/items/${product.slug}`,
+        url: `${baseUrl}/${district.slug}`,
         lastModified: new Date(),
         changeFrequency: "weekly",
         priority: 0.75,
       });
     });
-  });
+  } catch (err) {
+    console.error("Error generating district sitemaps:", err);
+  }
 
   return urls;
 }

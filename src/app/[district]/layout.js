@@ -1,3 +1,10 @@
+import { fetchDistrictsList } from "@/lib/data-fetcher";
+
+export async function generateStaticParams() {
+  const districts = await fetchDistrictsList();
+  return districts.map((d) => ({ district: d.slug }));
+}
+
 export async function generateMetadata({ params }) {
   const { district = "jaipur" } = await params;
 
@@ -5,7 +12,7 @@ export async function generateMetadata({ params }) {
     .replace(/-/g, " ")
     .replace(/\b\w/g, (char) => char.toUpperCase());
 
-  const title = `Biomedical & Diagnostic Equipment Supplier in ${districtName} | CBC Machines, Analyzers & Reagents | Raj Biosis`;
+  const title = `Biomedical & Diagnostic Equipment Supplier in ${districtName} | CBC Machines & Analyzers | Raj Biosis`;
 
   const description = `Raj Biosis is the leading biomedical and laboratory equipment supplier in ${districtName}. Supplying CBC Machines, 5-Part Hematology Analyzers, Biochemistry Analyzers, Reagents, ELISA Readers and Urine Analyzers to pathology labs and hospitals in ${districtName}.`;
 

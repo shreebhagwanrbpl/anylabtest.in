@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 
 export function SchemaScript({ schema }) {
@@ -24,7 +22,7 @@ export default function JsonLd({
 
   const organizationSchema = {
     "@context": "https://schema.org",
-    "@type": ["MedicalBusiness", "DiagnosticLab", "LocalBusiness"],
+    "@type": ["MedicalBusiness", "LocalBusiness", "Store"],
     "@id": `${baseUrl}/#organization`,
     name: "Raj Biosis",
     legalName: "Raj Biosis Biomedical Systems",
@@ -79,6 +77,9 @@ export default function JsonLd({
   // Product Schema
   let productSchema = null;
   if (product) {
+    const rawPrice = product.price || product.mrp;
+    const numericPrice = typeof rawPrice === "number" ? rawPrice : parseFloat(String(rawPrice).replace(/[^0-9.]/g, "")) || 0;
+
     productSchema = {
       "@context": "https://schema.org",
       "@type": "Product",
@@ -96,7 +97,8 @@ export default function JsonLd({
         "@type": "Offer",
         url: `${baseUrl}/items/${product.slug}`,
         priceCurrency: "INR",
-        price: product.price || "Contact for Price",
+        price: numericPrice > 0 ? String(numericPrice) : "0",
+        priceValidUntil: "2027-12-31",
         availability: "https://schema.org/InStock",
         seller: {
           "@type": "Organization",
@@ -148,3 +150,4 @@ export default function JsonLd({
     </>
   );
 }
+

@@ -84,7 +84,7 @@ export default function ContactPage() {
         collection(
           db,
           "websitesQueries",
-          "haemoglobinstripcom",
+          "anylabtestin",
           "contactQueries"
         ),
         {
@@ -125,18 +125,10 @@ export default function ContactPage() {
       if (!currentDistrict) return;
 
       try {
-        const snap = await getDoc(
-          doc(
-            db,
-            "websites",
-            "haemoglobinstripcom",
-            "districts",
-            currentDistrict
-          )
-        );
-
-        if (snap.exists()) {
-          setDistrictData(snap.data());
+        const { fetchDistrictData } = await import("@/lib/data-fetcher");
+        const data = await fetchDistrictData(currentDistrict);
+        if (data) {
+          setDistrictData(data);
         }
       } catch (err) {
         console.log(err);

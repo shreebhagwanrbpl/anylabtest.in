@@ -82,7 +82,7 @@ export const metadata = {
   },
 
   alternates: {
-    canonical: "https://anylabtest.in",
+    canonical: "/",
   },
 };
 

@@ -4,30 +4,23 @@ export default function robots() {
       {
         userAgent: "*",
         allow: "/",
+        disallow: [
+          "/api/",
+          "/*?*",
+          "/admin",
+          "/dashboard",
+          "/_next/",
+        ],
       },
       {
         userAgent: "Googlebot",
         allow: "/",
+        disallow: ["/api/", "/*?*"],
       },
       {
         userAgent: "Bingbot",
         allow: "/",
-      },
-      {
-        userAgent: "GPTBot",
-        allow: "/",
-      },
-      {
-        userAgent: "ChatGPT-User",
-        allow: "/",
-      },
-      {
-        userAgent: "PerplexityBot",
-        allow: "/",
-      },
-      {
-        userAgent: "ClaudeBot",
-        allow: "/",
+        disallow: ["/api/", "/*?*"],
       },
     ],
 
