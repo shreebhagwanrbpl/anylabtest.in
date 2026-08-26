@@ -15,27 +15,27 @@ export default function ServicesPreview() {
   const services = [
     {
       icon: <Microscope size={30} />,
-      title: "Diagnostic Equipment",
+      title: "Diagnostic Equipment Sales",
       description:
-        "Advanced diagnostic systems designed for accurate and efficient healthcare testing.",
-    },
-    {
-      icon: <FlaskConical size={30} />,
-      title: "Laboratory Solutions",
-      description:
-        "Reliable laboratory instruments and biomedical support for modern medical environments.",
+        "3-Part & 5-Part Hematology Analyzers, Biochemistry units, ELISA Readers, Electrolyte & Urine test instruments.",
     },
     {
       icon: <ShieldCheck size={30} />,
-      title: "Maintenance Support",
+      title: "AMC & CMC Service Contracts",
       description:
-        "Professional technical support and maintenance for biomedical systems.",
+        "Comprehensive maintenance contracts ensuring zero lab downtime with routine servicing and original OEM spares.",
+    },
+    {
+      icon: <FlaskConical size={30} />,
+      title: "NABL Standard Calibration",
+      description:
+        "Certified optical, photometric, and fluidic calibration to guarantee accurate patient test reports.",
     },
     {
       icon: <Stethoscope size={30} />,
-      title: "Healthcare Consultation",
+      title: "Cold-Chain Reagent Logistics",
       description:
-        "Expert guidance and consultation for healthcare and biomedical operations.",
+        "High-stability CBC diluents, lysing reagents, controls, calibrators, and biochemistry substrates delivered fast.",
     },
   ];
 
@@ -50,9 +50,9 @@ export default function ServicesPreview() {
 
         {/* Title */}
         <SectionTitle
-          badge="Our Services"
-          title="Premium Diagnostic & Biomedical Services"
-          description="Providing advanced healthcare technologies, laboratory systems, and trusted biomedical solutions for modern diagnostics."
+          badge="Our Capabilities"
+          title="Comprehensive Biomedical & Technical Services"
+          description="End-to-end diagnostic solutions designed to keep pathology labs running with total precision and high efficiency."
           center
         />
 

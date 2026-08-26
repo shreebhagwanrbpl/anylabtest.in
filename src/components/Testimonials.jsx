@@ -7,21 +7,21 @@ export default function Testimonials() {
   const reviews = [
     {
       name: "Dr. Rajesh Kumar",
-      role: "Healthcare Specialist",
+      role: "Chief Pathologist, Apex Diagnostics",
       review:
-        "Raj Biosis has consistently delivered reliable diagnostic equipment with outstanding support.",
+        "Raj Biosis supplied our 5-part CBC analyzer and fully automated biochemistry unit. Their precision optical calibration and fresh cold-chain reagent delivery have kept our daily test reports 100% accurate.",
     },
     {
       name: "Amit Sharma",
-      role: "Lab Director",
+      role: "Clinical Lab Director, City Care Hospital",
       review:
-        "Professional service, premium products, and excellent biomedical consultation experience.",
+        "The AMC technical support from Raj Biosis is exceptional. When our hematology analyzer encountered a fluidic issue, their field engineer arrived within hours and restored operations rapidly.",
     },
     {
-      name: "Neha Verma",
-      role: "Research Head",
+      name: "Dr. Neha Verma",
+      role: "Head of Biochemistry, MedTech Diagnostics",
       review:
-        "Their healthcare solutions improved our laboratory efficiency significantly.",
+        "Their turnkey laboratory consultation was invaluable when establishing our new diagnostic center. Genuine OEM reagents, multi-point calibration, and outstanding engineer guidance.",
     },
   ];
 
@@ -35,9 +35,9 @@ export default function Testimonials() {
       <div className="container-custom relative z-10">
 
         <SectionTitle
-          badge="Testimonials"
-          title="What Our Clients Say"
-          description="Trusted by healthcare professionals, laboratories, and biomedical institutions."
+          badge="Client Testimonials"
+          title="Trusted by Pathology Directors & Healthcare Leaders"
+          description="Hear what clinical pathologists, hospital directors, and laboratory managers say about Raj Biosis."
           center
         />
 

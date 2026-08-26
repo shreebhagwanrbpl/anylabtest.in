@@ -3,7 +3,9 @@ import { getProductBySlug, fetchFullCatalog } from "@/lib/data-fetcher-server";
 
 export async function generateStaticParams() {
   const products = await fetchFullCatalog();
-  return products.map((p) => ({ slug: p.slug }));
+  // Prerender top 100 items at build time for fast Cloud Build deployments.
+  // Remaining items are rendered on demand.
+  return products.slice(0, 100).map((p) => ({ slug: p.slug }));
 }
 
 export async function generateMetadata({ params }) {

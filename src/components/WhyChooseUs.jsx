@@ -14,27 +14,27 @@ export default function WhyChooseUs() {
   const features = [
     {
       icon: <Microscope size={30} />,
-      title: "Advanced Technology",
+      title: "Certified Diagnostic Systems",
       description:
-        "Modern biomedical and diagnostic equipment for accurate healthcare solutions.",
+        "ISO 9001 & CE compliant 3-Part/5-Part CBC machines, automated chemistry analyzers, and precision lab instruments.",
     },
     {
       icon: <ShieldCheck size={30} />,
-      title: "Trusted Quality",
+      title: "Cold-Chain Reagent Supply",
       description:
-        "Reliable and certified diagnostic systems with premium quality standards.",
+        "High-stability diluents, lysing reagents, liquid-stable controls, and calibrators delivered under strict cold-chain management.",
     },
     {
       icon: <HeartPulse size={30} />,
-      title: "Healthcare Focused",
+      title: "24-48 Hr Engineering SLA",
       description:
-        "Delivering healthcare-driven biomedical solutions with precision and care.",
+        "Rapid field engineer response across covered districts for preventive AMC maintenance, calibration, and emergency repairs.",
     },
     {
       icon: <BadgeCheck size={30} />,
-      title: "Expert Support",
+      title: "Turnkey Lab Setup",
       description:
-        "Professional consultation and technical support for all medical needs.",
+        "Comprehensive consultation for new diagnostic labs—from equipment selection to workflow design adhering to NABL guidelines.",
     },
   ];
 
@@ -50,8 +50,8 @@ export default function WhyChooseUs() {
         {/* Section Title */}
         <SectionTitle
           badge="Why Choose Us"
-          title="Trusted Biomedical Excellence"
-          description="We deliver innovative diagnostic technologies and biomedical solutions with precision, trust, and unmatched service quality."
+          title="Unmatched Biomedical & Laboratory Excellence"
+          description="We empower healthcare institutions with cutting-edge diagnostic technology, fresh reagent logistics, and guaranteed engineering support."
           center
         />
 

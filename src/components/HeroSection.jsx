@@ -94,7 +94,7 @@ export default function HeroSection({ city }) {
           {/* Trust Badge */}
           <div className="inline-flex items-center gap-2.5 bg-gradient-to-r from-rose-100 via-rose-50 to-red-100 border border-rose-200/80 text-[#7A1F3D] px-4 py-2 rounded-full text-xs sm:text-sm font-semibold mb-6 shadow-sm">
             <Sparkles size={16} className="text-[#8B2748] animate-pulse" />
-            <span>Premium Biomedical & Diagnostic Equipment Supplier</span>
+            <span>India's Trusted Biomedical & Diagnostic Equipment Network</span>
             {city && (
               <span className="bg-[#8B2748] text-white text-[11px] font-bold px-2 py-0.5 rounded-full uppercase">
                 {city}
@@ -112,7 +112,7 @@ export default function HeroSection({ city }) {
             ) : (
               <>
                 {heroData.title ||
-                  "Advanced Laboratory & Biomedical Diagnostics"}
+                  "Next-Gen Diagnostic Analyzers & Biomedical Equipment"}
                 {city && (
                   <>
                     <br />
@@ -134,11 +134,11 @@ export default function HeroSection({ city }) {
           ) : (
             <p className="mt-6 text-slate-600 text-base sm:text-lg leading-relaxed max-w-xl">
               {heroData.description ||
-                "Empowering hospitals, diagnostic centers, and pathology labs with high-precision analyzers, reagents, and certified biomedical engineering support."}
+                "Empowering pathology labs, hospitals, and diagnostic centers across India with high-precision 3-Part & 5-Part CBC machines, automated biochemistry analyzers, cold-chain reagents, and 24/7 certified engineer support."}
               {city && (
                 <>
                   {" "}
-                  Delivering certified equipment and technical services across{" "}
+                  Delivering certified diagnostic systems and technical support across{" "}
                   <strong className="text-[#8B2748]">{city}</strong>.
                 </>
               )}

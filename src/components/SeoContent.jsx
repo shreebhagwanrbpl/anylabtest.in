@@ -44,12 +44,12 @@ export default function SeoContent({ city = "" }) {
         {/* Heading */}
         <div className="mb-10">
           <span className="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-rose-100 to-red-100 border border-rose-200 text-[#8B2748] text-sm font-semibold shadow-sm mb-5">
-            Trusted Biomedical & Diagnostic Equipment Supplier
+            Premier Diagnostic & Biomedical Systems Supplier
           </span>
 
           <h2 className="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
             <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-              Biomedical Equipment Supplier & Distributor in {location}
+              Biomedical Equipment Supplier & Reagent Distributor in {location}
             </span>
           </h2>
 
@@ -59,19 +59,19 @@ export default function SeoContent({ city = "" }) {
         {/* Content */}
         <div className="space-y-7 text-slate-600 leading-relaxed text-base sm:text-lg">
           <p>
-            <strong className="text-[#8B2748]">Raj Biosis</strong> is a leading supplier of biomedical and diagnostic laboratory equipment in <strong className="text-[#8B2748]">{location}</strong>. We deliver high-precision <strong>CBC Machines</strong>, <strong>5-Part Hematology Analyzers</strong>, <strong>Semi & Fully Automated Biochemistry Analyzers</strong>, <strong>ELISA Microplate Readers</strong>, <strong>Electrolyte Analyzers</strong>, <strong>Urine Analyzers</strong>, and diagnostic reagents to pathology labs, hospitals, and diagnostic centers.
+            <strong className="text-[#8B2748]">Raj Biosis</strong> is India's trusted distributor of biomedical equipment and clinical laboratory solutions in <strong className="text-[#8B2748]">{location}</strong>. We supply high-precision <strong>3-Part & 5-Part CBC Machines</strong>, <strong>Semi & Fully Automated Biochemistry Analyzers</strong>, <strong>ELISA Readers</strong>, <strong>Electrolyte Analyzers</strong>, <strong>Urine Analyzers</strong>, and long-shelf-life diagnostic reagents to pathology labs, hospitals, and diagnostic institutions.
           </p>
 
           <p>
-            Our core commitment is empowering healthcare institutions across India with state-of-the-art laboratory technology. By combining certified medical hardware with high-stability diagnostic reagents and controls, we ensure clinical test reliability, low operational costs, and rapid sample turnaround.
+            Our objective is to empower healthcare providers across India with state-of-the-art laboratory technologies. By pairing certified medical hardware with high-stability diagnostic reagents, controls, and calibrators, we help clinical pathology labs achieve 100% test accuracy, minimal sample turnaround times, and reduced per-test operational costs.
           </p>
 
           <p>
-            In addition to equipment supply, our experienced biomedical engineers provide complete installation assistance, routine calibration adhering to quality standards, preventive maintenance, and rapid 24-48 hour breakdown repair services throughout <strong className="text-[#8B2748]">{location}</strong>.
+            Beyond equipment distribution, our certified biomedical field engineers deliver complete installation assistance, NABL-aligned optical & photometric calibration, routine AMC preventive maintenance, and rapid 24-48 hour breakdown repair response throughout <strong className="text-[#8B2748]">{location}</strong>.
           </p>
 
           <p>
-            Whether you are establishing a new diagnostic laboratory or upgrading existing analyzer models, Raj Biosis offers expert consultation to help you choose the best equipment for your specific daily sample volume.
+            Whether establishing a new pathology laboratory or upgrading analyzer throughput, Raj Biosis provides expert technical consultation tailored to your daily sample workload and budgetary requirements.
           </p>
         </div>
 

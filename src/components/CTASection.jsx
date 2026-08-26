@@ -3,15 +3,10 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  PhoneCall,
-} from "lucide-react";
+import { ArrowRight,PhoneCall, } from "lucide-react";
 
 export default function CTASection({ city }) {
-
   const pathname = usePathname();
-
   const staticRoutes = [
     "about",
     "services",
@@ -48,7 +43,6 @@ export default function CTASection({ city }) {
   return (
     <section className="section-padding bg-gradient-to-b from-rose-50 via-white to-red-50">
       <div className="container-custom">
-
         <motion.div
           initial={{
             opacity: 0,
@@ -66,50 +60,37 @@ export default function CTASection({ city }) {
           }}
           className="relative overflow-hidden rounded-[42px] bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] p-10 lg:p-20 text-white shadow-[0_25px_80px_rgba(122,31,61,0.30)]"
         >
-
           {/* Background Glow */}
           <div className="absolute -top-24 -left-24 w-80 h-80 bg-white/10 rounded-full blur-[120px]" />
           <div className="absolute bottom-0 right-0 w-72 h-72 bg-red-300/10 rounded-full blur-[120px]" />
-
           <div className="relative z-10 grid lg:grid-cols-2 gap-10 items-center">
-
             {/* Left */}
             <div>
-
               <span className="inline-flex items-center bg-white/15 backdrop-blur-md border border-white/20 px-5 py-2 rounded-full text-sm font-semibold mb-6">
-                Get In Touch
+                Consultation & Support
               </span>
-
               <h2 className="text-4xl lg:text-6xl font-bold leading-tight">
-                Need Premium Biomedical Solutions?
+                Ready to Upgrade Your Diagnostic Laboratory?
               </h2>
-
               <p className="mt-6 text-white/85 text-lg leading-8 max-w-xl">
-                Discover innovative diagnostic
-                systems and trusted biomedical
-                technologies tailored for modern
-                healthcare excellence.
+                Get in touch with Raj Biosis for certified 3-Part & 5-Part CBC machines, biochemistry analyzers, cold-chain reagents, and guaranteed 24/7 engineer support.
               </p>
 
             </div>
 
             {/* Right Card */}
             <div className="flex lg:justify-end">
-
               <div className="bg-white rounded-[30px] p-8 max-w-md w-full shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-rose-100">
-
-                <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-100 to-red-100 text-rose-700 flex items-center justify-center mb-6">
+            <div className="w-16 h-16 rounded-2l bg-gradient-to-br from-rose-100 to-red-100 text-rose-700 flex items-center justify-center mb-6">
                   <PhoneCall size={30} />
                 </div>
 
                 <h3 className="text-2xl font-bold text-slate-900">
-                  Let's Talk
+                  Consult Our Experts
                 </h3>
 
                 <p className="mt-3 text-slate-600 leading-7">
-                  Contact our biomedical experts
-                  for consultation, equipment,
-                  and healthcare support.
+                  Connect with our biomedical specialists for instrument quotes, reagent supply plans, and AMC support.
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">

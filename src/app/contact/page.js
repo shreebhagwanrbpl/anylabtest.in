@@ -232,7 +232,7 @@ export default function ContactPage() {
       {/* Banner */}
       <PageBanner
         title="Contact Us"
-        subtitle="Get in touch with  Raj Biosis for premium diagnostic and biomedical solutions."
+        subtitle="Get in touch with Raj Biosis Private Limited for certified biomedical equipment pricing, reagent logistics, AMC support, or turnkey laboratory setup consultation."
       />
 
       {/* Contact Section */}
@@ -247,14 +247,11 @@ export default function ContactPage() {
             </span>
 
             <h2 className="section-title">
-              Let’s Start a Conversation
+              Let’s Connect & Elevate Your Lab
             </h2>
 
             <p className="section-subtitle">
-              Reach out to us for
-              healthcare consultation,
-              biomedical products, and
-              advanced diagnostic support.
+              Reach out to our biomedical engineering team for instrument quotes, reagent supply contracts, AMC servicing, and technical assistance.
             </p>
 
             {/* Contact Cards */}

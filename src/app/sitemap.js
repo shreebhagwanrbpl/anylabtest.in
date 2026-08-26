@@ -51,6 +51,7 @@ export default async function sitemap() {
 
   // 4. Products Catalog
   let products = [];
+  
   try {
     products = await fetchFullCatalog();
   } catch (err) {
@@ -75,7 +76,6 @@ export default async function sitemap() {
     const districts = await getDistricts();
     districts.forEach((district) => {
       if (!district.slug) return;
-
       urls.push({
         url: `${baseUrl}/${district.slug}`,
         lastModified: new Date(),

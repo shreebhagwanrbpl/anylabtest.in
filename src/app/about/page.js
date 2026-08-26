@@ -15,9 +15,9 @@ import {
 } from "lucide-react";
 
 export async function generateMetadata() {
-  const title = "About Raj Biosis | Leading Biomedical & Diagnostic Equipment Supplier in India";
+  const title = "About Raj Biosis | India's Premier Biomedical & Diagnostic Equipment Partner";
   const description =
-    "Learn about Raj Biosis, India's trusted supplier of CBC Machines, Hematology Analyzers, Biochemistry Analyzers, Reagents, and Diagnostic Laboratory Equipment.";
+    "Learn about Raj Biosis Private Limited, India's trusted distributor of CBC Machines, 5-Part Hematology Analyzers, Automated Biochemistry Analyzers, Reagents, and AMC Biomedical Engineering Services.";
 
   return {
     title,
@@ -30,6 +30,7 @@ export async function generateMetadata() {
       "CBC Machine Distributor",
       "Hematology Analyzer Supplier",
       "Biochemistry Analyzer Supplier",
+      "NABL Calibration Services",
     ],
     alternates: {
       canonical: "https://anylabtest.in/about",
@@ -62,7 +63,7 @@ export default function AboutPage() {
       {/* Banner */}
       <PageBanner
         title="About Raj Biosis"
-        subtitle="Delivering trusted diagnostic and biomedical technologies with innovation, certified precision, and healthcare excellence across India."
+        subtitle="Empowering clinical pathology labs and healthcare institutions across India with certified diagnostic technology, cold-chain reagent logistics, and 24/7 engineer support."
       />
 
       {/* About Main Section */}
@@ -146,7 +147,7 @@ export default function AboutPage() {
                   Our Mission
                 </h4>
                 <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-                  Empowering clinical diagnostics with high-accuracy biomedical instruments, genuine reagents, and instant engineer assistance.
+                  Empowering pathology laboratories across India with high-accuracy biomedical instruments, fresh cold-chain reagents, and guaranteed field engineer support.
                 </p>
               </div>
 
@@ -158,7 +159,7 @@ export default function AboutPage() {
                   Our Vision
                 </h4>
                 <p className="text-slate-600 text-sm mt-2 leading-relaxed">
-                  Becoming India’s most trusted diagnostic partner by delivering cutting-edge laboratory solutions accessible across all districts.
+                  Becoming India’s most trusted diagnostic partner by delivering cutting-edge laboratory technologies, zero lab downtime, and district-wide service access.
                 </p>
               </div>
             </div>
@@ -168,16 +169,16 @@ export default function AboutPage() {
           <div className="lg:col-span-6">
             <SectionTitle
               badge="Who We Are"
-              title="Trusted Partner in Biomedical & Diagnostic Systems"
-              description="We provide advanced diagnostic analyzers, laboratory reagents, and certified technical consultation focused on healthcare innovation and laboratory precision."
+              title="India's Trusted Partner in Clinical Pathology & Biomedical Systems"
+              description="We supply certified diagnostic analyzers, high-stability reagents, and NABL-aligned technical consultation dedicated to healthcare innovation and diagnostic precision."
             />
 
             <p className="mt-6 text-slate-600 leading-relaxed text-base sm:text-lg">
-              At <strong className="text-[#8B2748]">Raj Biosis</strong>, we specialize in high-end medical equipment for clinical pathology, hematology, biochemistry, and immunoassay testing. Our portfolio includes 3-Part and 5-Part CBC machines, automated chemistry analyzers, ELISA readers, electrolyte instruments, urine test readers, and high-stability diagnostic reagents.
+              At <strong className="text-[#8B2748]">Raj Biosis Private Limited</strong>, we specialize in high-end medical equipment for clinical pathology, hematology, biochemistry, immunoassay, and electrolyte testing. Our portfolio features 3-Part and 5-Part CBC machines, automated chemistry analyzers, ELISA microplate readers, urine analyzers, and long-shelf-life diagnostic reagents.
             </p>
 
             <p className="mt-4 text-slate-600 leading-relaxed text-base sm:text-lg">
-              Whether establishing a new diagnostic lab or upgrading existing infrastructure, healthcare institutions across India rely on our end-to-end support—from equipment selection and installation to ongoing AMC maintenance and calibration.
+              Whether you are opening a new clinical diagnostic laboratory or upgrading your hospital infrastructure, healthcare institutions nationwide depend on our comprehensive service framework—from equipment consultation and installation to annual maintenance contracts (AMC/CMC), calibration, and emergency breakdown repairs.
             </p>
 
             {/* Feature Points Grid */}

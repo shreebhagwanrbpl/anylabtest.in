@@ -8,7 +8,9 @@ import { ShieldCheck, Award, Wrench } from "lucide-react";
 
 export async function generateStaticParams() {
   const brands = await getAllBrands();
-  return brands.map((b) => ({ slug: b.slug }));
+  // Prerender top 50 brands at build time for fast Cloud Build deployments.
+  // Remaining brands are rendered on demand.
+  return brands.slice(0, 50).map((b) => ({ slug: b.slug }));
 }
 
 export async function generateMetadata({ params }) {

@@ -2,7 +2,9 @@ import { fetchDistrictsList } from "@/lib/data-fetcher";
 
 export async function generateStaticParams() {
   const districts = await fetchDistrictsList();
-  return districts.map((d) => ({ district: d.slug }));
+  // Prerender top 30 districts at build time for fast Cloud Build deployments.
+  // Remaining districts will be dynamically rendered on demand.
+  return districts.slice(0, 30).map((d) => ({ district: d.slug }));
 }
 
 export async function generateMetadata({ params }) {

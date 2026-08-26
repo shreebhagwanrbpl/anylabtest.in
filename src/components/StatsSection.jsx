@@ -13,22 +13,22 @@ export default function StatsSection() {
     {
       icon: <Building2 size={34} />,
       number: "10+",
-      label: "Years Experience",
+      label: "Years Biomedical Leadership",
     },
     {
       icon: <FlaskConical size={34} />,
       number: "500+",
-      label: "Biomedical Products",
+      label: "Hospitals & Labs Equipped",
     },
     {
       icon: <Users size={34} />,
-      number: "200+",
-      label: "Trusted Clients",
+      number: "100%",
+      label: "NABL Standard Alignment",
     },
     {
       icon: <BadgeCheck size={34} />,
-      number: "100%",
-      label: "Quality Assurance",
+      number: "24/7",
+      label: "Biomedical Technical Support",
     },
   ];
 

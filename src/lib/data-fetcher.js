@@ -5,13 +5,6 @@ import { doc, getDoc, getDocs, collection } from "firebase/firestore";
 const docCache = {};
 let catalogPromise = null;
 
-const makeSlug = (text = "") =>
-  text
-    .toLowerCase()
-    .trim()
-    .replace(/[^a-z0-9\s-]/g, "")
-    .replace(/\s+/g, "-");
-
 /**
  * Standardized Data Fetcher with multi-site collection fallback.
  */

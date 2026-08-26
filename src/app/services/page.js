@@ -29,57 +29,57 @@ export default function ServicesPage() {
 
   const fallbackServices = [
     {
-      title: "Biomedical Equipment Sales & Supply",
-      desc: "Supply of 3-Part & 5-Part Hematology Analyzers, Biochemistry Analyzers, ELISA Readers, Electrolyte Analyzers, Urine Analyzers, and diagnostic instruments.",
+      title: "Diagnostic Equipment Sales & Supply",
+      desc: "Supply of 3-Part & 5-Part Hematology Analyzers, Semi & Fully Automated Biochemistry Analyzers, ELISA Microplate Readers, Electrolyte Analyzers, and Urine Readers.",
       features: [
-        "Certified Original Equipment",
-        "Full Warranty Coverage",
-        "Demonstration & Setup",
+        "ISO & CE Certified Equipment",
+        "Comprehensive Warranty Coverage",
+        "On-Site Demonstration & Installation",
       ],
     },
     {
       title: "Annual Maintenance Contracts (AMC & CMC)",
-      desc: "Comprehensive and Non-Comprehensive maintenance contracts to ensure zero lab downtime, periodic preventive servicing, and optical calibration.",
+      desc: "Preventive and comprehensive maintenance contracts designed to prevent laboratory downtime, including periodic optical calibration and emergency breakdown visits.",
       features: [
-        "Preventive Maintenance Visits",
-        "Emergency Repair Support",
-        "Original Spare Parts",
+        "Scheduled Preventive Servicing",
+        "Priority Emergency SLA",
+        "Original OEM Spare Parts",
       ],
     },
     {
-      title: "Laboratory Equipment Calibration & QC",
-      desc: "Precision optical, thermal, and photometric calibration services adhering to NABL standards to guarantee accurate diagnostic test results.",
+      title: "Laboratory Calibration & NABL Alignment",
+      desc: "Precision optical, thermal, and photometric calibration services adhering strictly to NABL quality guidelines to guarantee accurate diagnostic test reporting.",
       features: [
-        "NABL Compliant Standards",
-        "Calibration Certificates",
-        "Multi-Point Quality Check",
+        "NABL Compliant Calibration",
+        "Official Calibration Certificates",
+        "Multi-Point Quality Benchmarking",
       ],
     },
     {
-      title: "Diagnostic Reagents & Consumables Logistics",
-      desc: "Regular, uninterrupted supply of high-stability CBC diluents, lysing reagents, biochemistry liquid-stable substrates, controls, and calibrators.",
+      title: "Cold-Chain Reagents & Consumables Logistics",
+      desc: "Uninterrupted, temperature-controlled delivery of high-stability CBC diluents, lysing reagents, liquid-stable biochemistry substrates, controls, and calibrators.",
       features: [
-        "Cold Chain Supply Management",
-        "Long Shelf-Life Guarantee",
-        "Pan-India Delivery",
+        "Temperature-Controlled Cold Chain",
+        "Fresh Batches with Long Shelf-Life",
+        "Fast District Delivery",
       ],
     },
     {
-      title: "Complete Pathology & Diagnostic Lab Setup",
-      desc: "End-to-end turnkey consultation for establishing new clinical pathology laboratories, space optimization, instrument selection, and workflow design.",
+      title: "Complete Pathology Laboratory Setup",
+      desc: "End-to-end turnkey consultation for establishing new clinical pathology laboratories, spatial workflow optimization, instrument matching, and staff training.",
       features: [
-        "Custom Space Planning",
-        "Workflow Optimization",
-        "Equipment Selection Advice",
+        "Custom Laboratory Layout Design",
+        "Sample Workload Optimization",
+        "Expert Instrument Selection",
       ],
     },
     {
-      title: "On-Site Technical Breakdown Repair",
-      desc: "Rapid response engineering assistance for urgent machine breakdown, fluidic blockages, electronic board errors, and optical sensor replacements.",
+      title: "Rapid Breakdown Engineering Repair",
+      desc: "Dedicated field engineer response for urgent machine breakdown, fluidic blockages, sensor recalibration, electronic board errors, and tube replacements.",
       features: [
-        "24-48 Hour Response SLA",
+        "24-48 Hour On-Site SLA",
         "Certified Field Engineers",
-        "On-Site Troubleshooting",
+        "On-Site Diagnostics & Repair",
       ],
     },
   ];
@@ -95,24 +95,24 @@ export default function ServicesPage() {
 
   const serviceFaqs = [
     {
-      question: "What types of biomedical equipment do you service and maintain?",
+      question: "What types of biomedical analyzers do you sell and service?",
       answer:
-        "We specialize in CBC machines (3-part & 5-part hematology analyzers), biochemistry analyzers (semi & fully auto), ELISA readers, electrolyte analyzers, urine analyzers, and centrifuge systems.",
+        "We specialize in 3-part & 5-part hematology analyzers (CBC machines), semi-automated and fully automated biochemistry analyzers, ELISA readers, electrolyte analyzers, urine strip readers, and centrifuge systems.",
     },
     {
-      question: "What is covered under your Annual Maintenance Contract (AMC)?",
+      question: "What is covered under your Annual Maintenance Contracts (AMC / CMC)?",
       answer:
-        "Our AMC includes regular preventive maintenance visits, optical and fluidic calibration, emergency breakdown visits, and technical hotline assistance. CMC contracts additionally cover spare parts replacement.",
+        "Our AMC includes scheduled preventive servicing, optical & fluidic calibration, emergency breakdown visits, and technical hotline assistance. CMC contracts additionally include replacement of worn OEM spare parts.",
     },
     {
-      question: "How fast is your technical support response time?",
+      question: "How fast is your technical support response SLA?",
       answer:
-        "We offer a 24-48 hour on-site response SLA across covered districts for urgent laboratory breakdown calls.",
+        "We maintain a guaranteed 24-48 hour on-site engineering response SLA across covered districts for urgent laboratory breakdown calls.",
     },
     {
       question: "Do you supply original diagnostic reagents and calibrators?",
       answer:
-        "Yes, we provide fresh-batch, long-shelf-life diluents, lysing reagents, biochemistry reagents, controls, and calibrators with proper temperature-controlled logistics.",
+        "Yes, we supply fresh-batch, long-shelf-life diluents, lysing reagents, biochemistry substrates, controls, and calibrators with temperature-monitored cold-chain shipping.",
     },
   ];
 
