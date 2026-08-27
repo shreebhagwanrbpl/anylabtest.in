@@ -146,6 +146,9 @@ const CategoryItem = memo(function CategoryItem({
   );
 });
 
+// Global cache for static render/non-searched grouping to speed up build and initial mount
+let globalGroupedCache = null;
+
 export default function ProductsClient({ initialProducts = [], district = null, city = null }) {
   const [categorySearch, setCategorySearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
@@ -166,8 +169,15 @@ export default function ProductsClient({ initialProducts = [], district = null, 
 
   // Combined single-pass product filtering, grouping, category count, and sorting for maximum performance
   const { filteredProducts, sortedGroupedProducts, categoryCounts } = useMemo(() => {
-    const start = performance.now();
     const query = productSearch.trim().toLowerCase();
+
+    // If no search query and we already computed the full catalog grouping, return it instantly
+    if (!query && globalGroupedCache) {
+      console.log(`[ProductsClient] Grouping cache hit.`);
+      return globalGroupedCache;
+    }
+
+    const start = performance.now();
     const filtered = query
       ? initialProducts.filter((item) => {
         const title = (item.title || "").toLowerCase();
@@ -226,11 +236,17 @@ export default function ProductsClient({ initialProducts = [], district = null, 
     const end = performance.now();
     console.log(`[ProductsClient] Grouping, filtering, and sorting completed in ${(end - start).toFixed(2)}ms`);
 
-    return {
+    const result = {
       filteredProducts: filtered,
       sortedGroupedProducts: sortedObj,
       categoryCounts: counts,
     };
+
+    if (!query) {
+      globalGroupedCache = result;
+    }
+
+    return result;
   }, [initialProducts, productSearch]);
 
   const getCategoryProductCount = useCallback((categoryName) => {

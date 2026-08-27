@@ -1,10 +1,15 @@
 import { fetchFullCatalog as fetchFullCatalogRaw, makeSlug, fetchDistrictsList } from "./data-fetcher";
 import { cache } from "react";
+import fs from "fs";
+import path from "path";
 
 // Global in-memory cache for the server process to bypass Next.js 2MB unstable_cache limit
 let cachedCatalog = null;
 let cachedCatalogTimestamp = 0;
 const CACHE_TTL = 3600 * 1000; // 1 hour in milliseconds
+
+const CACHE_DIR = path.join(process.cwd(), ".next", "cache");
+const CACHE_FILE = path.join(CACHE_DIR, "catalog-cache.json");
 
 async function getCachedCatalog() {
   const now = Date.now();
@@ -12,8 +17,45 @@ async function getCachedCatalog() {
     return cachedCatalog;
   }
 
-  console.log("[data-fetcher-server] Server memory cache miss or expired. Fetching raw catalog...");
+  // Check filesystem cache
+  try {
+    if (!fs.existsSync(CACHE_DIR)) {
+      fs.mkdirSync(CACHE_DIR, { recursive: true });
+    }
+
+    if (fs.existsSync(CACHE_FILE)) {
+      const stats = fs.statSync(CACHE_FILE);
+      // Ensure the file is not stale
+      if ((now - stats.mtimeMs) < CACHE_TTL) {
+        console.log("[data-fetcher-server] Server disk cache hit. Loading catalog from disk...");
+        const fileContent = fs.readFileSync(CACHE_FILE, "utf8");
+        if (fileContent && fileContent.trim().length > 0) {
+          const data = JSON.parse(fileContent);
+          if (data && data.length > 0) {
+            cachedCatalog = data;
+            cachedCatalogTimestamp = now;
+            return data;
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.warn("[data-fetcher-server] Disk cache read error:", err?.message);
+  }
+
+  console.log("[data-fetcher-server] Server disk/memory cache miss. Fetching raw catalog from Firestore...");
   const data = await fetchFullCatalogRaw();
+
+  // Write to disk cache atomically to avoid race conditions
+  try {
+    const tempFile = CACHE_FILE + "." + Math.random().toString(36).substring(2) + ".tmp";
+    fs.writeFileSync(tempFile, JSON.stringify(data), "utf8");
+    fs.renameSync(tempFile, CACHE_FILE);
+    console.log(`[data-fetcher-server] Successfully wrote catalog cache to disk (${data.length} items).`);
+  } catch (err) {
+    console.warn("[data-fetcher-server] Disk cache write error:", err?.message);
+  }
+
   cachedCatalog = data;
   cachedCatalogTimestamp = now;
   return data;
