@@ -1384,159 +1384,127 @@ ${product?.desc}
 
                             {/* FAQ Section */}
 
-                            <div className="mt-12">
+                        <div className="mt-12">
 
+    <h3 className="text-2xl font-bold mb-6 text-[#2D1B21]">
+        Product Information & Support
+    </h3>
 
-                                <h3 className="text-2xl font-bold mb-6 text-[#2D1B21]">
-                                    Frequently Asked Questions
-                                </h3>
+    <div className="space-y-8">
 
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                What is {product.title} and where is it commonly used?
+            </h4>
 
+            <p className="text-[#6B4A54] mt-2">
+                {product.title} is designed for laboratory and diagnostic
+                applications and may be used in hospitals, pathology
+                laboratories, diagnostic centres, clinics, and other
+                healthcare facilities depending on its intended application.
+            </p>
+        </div>
 
-                                <div className="space-y-8">
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                How can I get the current price for {product.title}?
+            </h4>
 
+            <p className="text-[#6B4A54] mt-2">
+                The price may vary based on the brand, model, configuration,
+                specifications, and quantity required. Contact our team with
+                your requirement to receive the latest quotation.
+            </p>
+        </div>
 
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                How do I choose the right model for my laboratory?
+            </h4>
 
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            What is {product.title} used for in {cityName}?
-                                        </h4>
+            <p className="text-[#6B4A54] mt-2">
+                Model selection depends on factors such as testing volume,
+                required parameters, workflow, automation level, and laboratory
+                requirements. Our team can help you compare suitable options.
+            </p>
+        </div>
 
-                                        <p className="text-[#6B4A54] mt-2">
-                                            {product.title} is commonly used in hospitals,
-                                            pathology laboratories and diagnostic centres.
-                                        </p>
-                                    </div>
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                Is this product available for healthcare facilities in {cityName}?
+            </h4>
 
+            <p className="text-[#6B4A54] mt-2">
+                Yes, we accept enquiries from hospitals, pathology laboratories,
+                diagnostic centres, clinics, and healthcare institutions in
+                {cityName} and other locations across India.
+            </p>
+        </div>
 
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                Do you offer installation and technical assistance?
+            </h4>
 
+            <p className="text-[#6B4A54] mt-2">
+                Technical assistance, installation guidance, and service support
+                are available for applicable products. Support requirements may
+                vary depending on the equipment and manufacturer.
+            </p>
+        </div>
 
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                Can I request a quotation for this product?
+            </h4>
 
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            What is the price of {product.title} in {cityName}?
-                                        </h4>
+            <p className="text-[#6B4A54] mt-2">
+                Yes. You can submit an enquiry with your required quantity,
+                location, and product specifications. Our team will provide
+                the relevant product and quotation details.
+            </p>
+        </div>
 
-                                        <p className="text-[#6B4A54] mt-2">
-                                            Pricing depends on specifications,
-                                            brand and model. Contact us for a quote.
-                                        </p>
-                                    </div>
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                What warranty or service coverage is available?
+            </h4>
 
+            <p className="text-[#6B4A54] mt-2">
+                Warranty and service coverage depend on the manufacturer,
+                product model, and applicable terms. The available coverage
+                can be confirmed at the time of purchase.
+            </p>
+        </div>
 
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                Do you supply products outside {cityName}?
+            </h4>
 
+            <p className="text-[#6B4A54] mt-2">
+                Yes, we supply biomedical and laboratory products to customers
+                across India. Delivery arrangements depend on the product,
+                destination, and order requirements.
+            </p>
+        </div>
 
+        <div>
+            <h4 className="font-semibold text-lg text-[#7B1E3A]">
+                How can I enquire about {product.title}?
+            </h4>
 
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            Are you an authorized supplier of {product.title}?
-                                        </h4>
+            <p className="text-[#6B4A54] mt-2">
+                You can use the enquiry form on this page or contact our team
+                directly with your product requirement. We can assist with
+                specifications, availability, pricing, and other product
+                information.
+            </p>
+        </div>
 
-                                        <p className="text-[#6B4A54] mt-2">
-                                            We supply genuine biomedical and
-                                            laboratory equipment from trusted brands.
-                                        </p>
-                                    </div>
+    </div>
 
-
-
-
-
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            Can hospitals in {cityName} order this product?
-                                        </h4>
-
-                                        <p className="text-[#6B4A54] mt-2">
-                                            Yes, hospitals, pathology laboratories,
-                                            diagnostic centres and healthcare facilities
-                                            can order this product.
-                                        </p>
-                                    </div>
-
-
-
-
-
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            Do you provide installation support?
-                                        </h4>
-
-                                        <p className="text-[#6B4A54] mt-2">
-                                            Yes, installation and technical support
-                                            are available depending on the product.
-                                        </p>
-                                    </div>
-
-
-
-
-
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            Can I request a quotation?
-                                        </h4>
-
-                                        <p className="text-[#6B4A54] mt-2">
-                                            Yes, you can submit the enquiry form on
-                                            this page to receive pricing and product
-                                            information.
-                                        </p>
-                                    </div>
-
-
-
-
-
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            Do you provide warranty?
-                                        </h4>
-
-                                        <p className="text-[#6B4A54] mt-2">
-                                            Warranty depends on the manufacturer and
-                                            product model.
-                                        </p>
-                                    </div>
-
-
-
-
-
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            Do you deliver across India?
-                                        </h4>
-
-                                        <p className="text-[#6B4A54] mt-2">
-                                            Yes, we supply products across India with
-                                            safe packaging and logistics support.
-                                        </p>
-                                    </div>
-
-
-
-
-
-                                    <div>
-                                        <h4 className="font-semibold text-lg text-[#7B1E3A]">
-                                            How can I contact Raj Biosis?
-                                        </h4>
-
-                                        <p className="text-[#6B4A54] mt-2">
-                                            You can fill out the enquiry form or
-                                            contact our team directly for product
-                                            details and quotations.
-                                        </p>
-                                    </div>
-
-
-
-                                </div>
-
-
-                            </div>
+</div>
 
                         </div>
 

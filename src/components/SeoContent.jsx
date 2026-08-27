@@ -49,7 +49,7 @@ export default function SeoContent({ city = "" }) {
 
           <h2 className="text-4xl lg:text-5xl font-extrabold leading-tight text-slate-900">
             <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-              Biomedical Equipment Supplier & Reagent Distributor in {location}
+                Medical & Laboratory Solutions for Modern Healthcare in {location}
             </span>
           </h2>
 
@@ -57,29 +57,46 @@ export default function SeoContent({ city = "" }) {
         </div>
 
         {/* Content */}
-        <div className="space-y-7 text-slate-600 leading-relaxed text-base sm:text-lg">
-          <p>
-            <strong className="text-[#8B2748]">Raj Biosis</strong> is India's trusted distributor of biomedical equipment and clinical laboratory solutions in <strong className="text-[#8B2748]">{location}</strong>. We supply high-precision <strong>3-Part & 5-Part CBC Machines</strong>, <strong>Semi & Fully Automated Biochemistry Analyzers</strong>, <strong>ELISA Readers</strong>, <strong>Electrolyte Analyzers</strong>, <strong>Urine Analyzers</strong>, and long-shelf-life diagnostic reagents to pathology labs, hospitals, and diagnostic institutions.
-          </p>
+    <div className="space-y-7 text-slate-600 leading-relaxed text-base sm:text-lg">
+    <p>
+        <strong className="text-[#8B2748]">Raj Biosis Private Limited</strong> provides
+        laboratory equipment, diagnostic products, reagents, and biomedical
+        solutions to hospitals, pathology laboratories, diagnostic centres,
+        clinics, and healthcare institutions across <strong className="text-[#8B2748]">{location}</strong>.
+        Our range includes <strong>3-Part & 5-Part Hematology Analyzers</strong>,
+        <strong> Semi & Fully Automated Biochemistry Analyzers</strong>,
+        <strong> ELISA Readers</strong>, <strong>Electrolyte Analyzers</strong>,
+        <strong> Urine Analyzers</strong>, diagnostic kits, reagents, and
+        laboratory consumables.
+    </p>
 
-          <p>
-            Our objective is to empower healthcare providers across India with state-of-the-art laboratory technologies. By pairing certified medical hardware with high-stability diagnostic reagents, controls, and calibrators, we help clinical pathology labs achieve 100% test accuracy, minimal sample turnaround times, and reduced per-test operational costs.
-          </p>
+    <p>
+        We understand that every laboratory has different testing volumes,
+        workflows, and operational requirements. That is why we help healthcare
+        facilities identify suitable instruments and laboratory products based
+        on their applications, workload, available space, and budget.
+    </p>
 
-          <p>
-            Beyond equipment distribution, our certified biomedical field engineers deliver complete installation assistance, NABL-aligned optical & photometric calibration, routine AMC preventive maintenance, and rapid 24-48 hour breakdown repair response throughout <strong className="text-[#8B2748]">{location}</strong>.
-          </p>
+    <p>
+        Our support extends beyond product supply. We assist customers with
+        equipment installation, basic operational guidance, preventive
+        maintenance, troubleshooting, and technical service requirements to
+        help laboratories maintain consistent day-to-day operations.
+    </p>
 
-          <p>
-            Whether establishing a new pathology laboratory or upgrading analyzer throughput, Raj Biosis provides expert technical consultation tailored to your daily sample workload and budgetary requirements.
-          </p>
-        </div>
+    <p>
+        Whether you are setting up a new diagnostic laboratory, expanding your
+        existing testing capacity, or replacing older equipment, Raj Biosis
+        offers practical product guidance and dependable biomedical solutions
+        tailored to your laboratory requirements in <strong className="text-[#8B2748]">{location}</strong>.
+    </p>
+</div>
 
         {/* FAQ Section */}
         <div className="mt-16">
           <h3 className="text-3xl font-bold mb-8">
             <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
-              Frequently Asked Questions (FAQ) - {location}
+               Everything You May Want to Know (FAQ) - {location}
             </span>
           </h3>
 

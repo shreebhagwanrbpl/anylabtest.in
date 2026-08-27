@@ -50,8 +50,8 @@ export default function WhyChooseUs() {
         {/* Section Title */}
         <SectionTitle
           badge="Why Choose Us"
-          title="Unmatched Biomedical & Laboratory Excellence"
-          description="We empower healthcare institutions with cutting-edge diagnostic technology, fresh reagent logistics, and guaranteed engineering support."
+          title="Built Around Better Laboratory Performance"
+          description="Helping healthcare facilities simplify laboratory operations with dependable diagnostic equipment, essential laboratory products, and responsive technical assistance. We focus on practical solutions that support accurate testing, efficient workflows, and the day-to-day needs of modern laboratories."
           center
         />
 

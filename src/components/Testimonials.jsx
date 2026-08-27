@@ -36,8 +36,8 @@ export default function Testimonials() {
 
         <SectionTitle
           badge="Client Testimonials"
-          title="Trusted by Pathology Directors & Healthcare Leaders"
-          description="Hear what clinical pathologists, hospital directors, and laboratory managers say about Raj Biosis."
+          title="Experience That Speaks for Itself"
+          description="Discover how laboratories, hospitals, and diagnostic professionals have experienced our products, service, and technical support. Our focus remains on dependable solutions, responsive assistance, and building lasting relationships with healthcare organizations."
           center
         />
 
