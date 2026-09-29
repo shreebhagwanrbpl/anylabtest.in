@@ -1,13 +1,6 @@
 "use client";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
-import {
-  doc,
-  getDoc,
-  addDoc,
-  collection,
-} from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import toast from "react-hot-toast";
 import {
   Mail,
@@ -28,14 +21,27 @@ export default function ContactPage() {
 
   const [submitting, setSubmitting] =
     useState(false);
-  const pathname = usePathname();
+  const pathname = usePathname() || "";
 
   const pathParts = pathname
     .split("/")
     .filter(Boolean);
 
+  const staticRoutes = [
+    "about",
+    "services",
+    "products",
+    "contact",
+    "items",
+    "category",
+    "brand",
+    "laboratory-equipment",
+    "api",
+    "enquiry",
+  ];
+
   const currentDistrict =
-    pathParts.length > 0
+    pathParts.length > 0 && !staticRoutes.includes(pathParts[0].toLowerCase())
       ? pathParts[0]
       : null;
   const handleChange = (e) => {
@@ -80,18 +86,7 @@ export default function ContactPage() {
     try {
       setSubmitting(true);
 
-      await addDoc(
-        collection(
-          db,
-          "websitesQueries",
-          "anylabtestin",
-          "contactQueries"
-        ),
-        {
-          ...form,
-          createdAt: new Date(),
-        }
-      );
+      await fetch("/api/contact-query", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ ...form, createdAt: new Date().toISOString() }) }).then(async r => { if (!r.ok) throw new Error((await r.json()).error || "Submission failed"); });
 
       toast.success(
         "Message submitted successfully"
@@ -122,50 +117,28 @@ export default function ContactPage() {
   });
   useEffect(() => {
     const loadDistrict = async () => {
-      if (!currentDistrict) return;
+      if (!currentDistrict) {
+        setDistrictData(null);
+        return;
+      }
 
       try {
         const { fetchDistrictData } = await import("@/lib/data-fetcher");
         const data = await fetchDistrictData(currentDistrict);
-        if (data) {
+        if (data && data.district) {
           setDistrictData(data);
+        } else {
+          setDistrictData(null);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
+        setDistrictData(null);
       }
     };
 
     loadDistrict();
   }, [currentDistrict]);
-  useEffect(() => {
-    const loadContact = async () => {
-      try {
-        const snap = await getDoc(
-          doc(
-            db,
-            "websites",
-            "haemoglobinstripcom",
-            "pages",
-            "contact"
-          )
-        );
-
-        if (snap.exists()) {
-          setContactInfo(
-            snap.data().contactInfo || []
-          );
-        }
-      } catch (err) {
-        console.log(err);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadContact();
-  }, []);
-
-
+  useEffect(() => { fetch("/api/site-data?page=contact", { cache: "no-store" }).then(r => r.json()).then(d => setContactInfo(d?.contactInfo || [])).catch(console.error).finally(() => setLoading(false)); }, []);
 
   const getContactField = (labels) => {
     const found = contactInfo.find(
@@ -179,10 +152,12 @@ export default function ContactPage() {
   const address = getContactField(["address", "office address", "address/office address"]);
   const hours = getContactField(["working hours", "hours", "work hours"]);
 
+  const defaultAddress = "F-4, 1st Floor, Plot No. 16, D-Block Tagor Nagar, on Ajmer-Delhi, 200 Feet Bypass Rd, Jaipur, Rajasthan 302021";
+
   const dynamicAddress =
-    districtData
+    districtData?.district && districtData?.state
       ? `${districtData.district}, ${districtData.state}, India`
-      : address;
+      : (address || defaultAddress);
 
   let phoneValues = [];
   if (Array.isArray(phone)) {
@@ -381,14 +356,7 @@ export default function ContactPage() {
                 className="w-full border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-sky-600"
               />
 
-              <input
-                type="text"
-                name="subject"
-                placeholder="Subject"
-                value={form.subject}
-                onChange={handleChange}
-                className="w-full border border-slate-200 rounded-2xl px-5 py-4 outline-none focus:border-sky-600"
-              />
+
 
               <textarea
                 rows={5}

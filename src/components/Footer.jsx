@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
@@ -30,67 +28,39 @@ export default function Footer() {
     "products",
     "contact",
     "items",
+    "category",
+    "brand",
+    "laboratory-equipment",
+    "api",
+    "enquiry",
   ];
 
   const district =
     pathParts.length > 0 &&
-      !staticRoutes.includes(pathParts[0])
+      !staticRoutes.includes(pathParts[0].toLowerCase())
       ? pathParts[0]
       : "";
 
-  useEffect(() => {
-    const loadContact = async () => {
-      try {
-        const snap = await getDoc(
-          doc(
-            db,
-            "websites",
-            "anylabtestin",
-            "pages",
-            "contact"
-          )
-        );
-
-        if (snap.exists()) {
-          setContactInfo(
-            snap.data().contactInfo || []
-          );
-        }
-
-        setLoading(false);
-      } catch (err) {
-        console.log(err);
-        setLoading(false);
-      }
-    };
-
-    loadContact();
-  }, []);
+  useEffect(() => { fetch("/api/site-data?page=contact", {cache:"no-store"}).then(r=>r.json()).then(d=>setContactInfo(d?.contactInfo || [])).catch(console.error).finally(()=>setLoading(false)); }, []);
 
   useEffect(() => {
-    const loadDistrict = async () => {
-      if (!district) return;
-
-      try {
-        const snap = await getDoc(
-          doc(
-            db,
-            "websites",
-            "anylabtestin",
-            "districts",
-            district
-          )
-        );
-
-        if (snap.exists()) {
-          setDistrictData(snap.data());
+    if (!district) {
+      setDistrictData(null);
+      return;
+    }
+    fetch(`/api/site-data?page=district&district=${encodeURIComponent(district)}`, {cache:"no-store"})
+      .then(r=>r.json())
+      .then(data => {
+        if (data && data.district) {
+          setDistrictData(data);
+        } else {
+          setDistrictData(null);
         }
-      } catch (err) {
-        console.log(err);
-      }
-    };
-
-    loadDistrict();
+      })
+      .catch(err => {
+        console.error(err);
+        setDistrictData(null);
+      });
   }, [district]);
 
   const [categories, setCategories] = useState([]);
@@ -125,10 +95,12 @@ export default function Footer() {
   const email = getContactField(["email", "email address"]);
   const address = getContactField(["address", "office address", "address/office address"]);
 
+  const defaultAddress = "F-4, 1st Floor, Plot No. 16, D-Block Tagor Nagar, on Ajmer-Delhi, 200 Feet Bypass Rd, Jaipur, Rajasthan 302021";
+
   const dynamicAddress =
-    districtData
+    districtData?.district && districtData?.state
       ? `${districtData.district}, ${districtData.state}, India`
-      : address;
+      : (address || defaultAddress);
 
   let phoneValues = [];
   if (Array.isArray(phone)) {

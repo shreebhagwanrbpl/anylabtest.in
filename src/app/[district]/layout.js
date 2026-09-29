@@ -1,4 +1,4 @@
-import { fetchDistrictsList } from "@/lib/data-fetcher";
+import { fetchDistrictsList } from "@/lib/data-fetcher-server";
 
 export async function generateStaticParams() {
   const districts = await fetchDistrictsList();

@@ -15,14 +15,6 @@ import {
     FaLink,
 } from "react-icons/fa";
 
-import {
-    doc,
-    getDoc,
-    getDocs,
-    addDoc,
-    collection,
-} from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import { fetchFullCatalog } from "@/lib/data-fetcher";
 import { Download } from "lucide-react";
 const makeSlug = (text = "") =>
@@ -227,22 +219,14 @@ export default function ProductDetails({ slug }) {
         try {
             setSubmitting(true);
 
-            await addDoc(
-                collection(
-                    db,
-                    "websitesQueries",
-                    "anylabtestin",
-                    "productQueries"
-                ),
-                {
+            await fetch("/api/product-query", {method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({
                     ...form,
                     productName: product.title,
                     productSlug: product.slug,
                     brand: product.brand || "",
                     model: product.model || "",
                     createdAt: new Date(),
-                }
-            );
+                })}).then(async r=>{if(!r.ok) throw new Error((await r.json()).error||"Submission failed");});
 
             toast.success(
                 "Your enquiry has been submitted successfully."

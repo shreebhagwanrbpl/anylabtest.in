@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
-
 import {
   ArrowRight,
   ShieldCheck,
@@ -33,25 +30,7 @@ export default function HeroSection({ city }) {
     button2Text: "",
   });
 
-  useEffect(() => {
-    const fetchHeroData = async () => {
-      try {
-        const snap = await getDoc(
-          doc(db, "websites", "anylabtestin", "pages", "home")
-        );
-
-        if (snap.exists()) {
-          setHeroData(snap.data());
-        }
-      } catch (error) {
-        console.error("Error fetching hero data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchHeroData();
-  }, []);
+  useEffect(() => { fetch("/api/site-data?page=home", {cache:"no-store"}).then(r=>r.json()).then(d=>{ if(d && Object.keys(d).length) setHeroData(d); }).catch(console.error).finally(()=>setLoading(false)); }, []);
 
   // District Routing Helper
   const districtSlug = city ? city.toLowerCase().replace(/\s+/g, "-") : "";

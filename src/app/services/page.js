@@ -1,8 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { doc, getDoc } from "firebase/firestore";
-import { db } from "@/lib/firebase";
 import PageBanner from "@/components/PageBanner";
 import SectionTitle from "@/components/SectionTitle";
 import ServiceCard from "@/components/ServiceCard";
@@ -27,72 +25,28 @@ export default function ServicesPage() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  const fallbackServices = [
-    {
-      title: "Diagnostic Equipment Sales & Supply",
-      desc: "Supply of 3-Part & 5-Part Hematology Analyzers, Semi & Fully Automated Biochemistry Analyzers, ELISA Microplate Readers, Electrolyte Analyzers, and Urine Readers.",
-      features: [
-        "ISO & CE Certified Equipment",
-        "Comprehensive Warranty Coverage",
-        "On-Site Demonstration & Installation",
-      ],
-    },
-    {
-      title: "Annual Maintenance Contracts (AMC & CMC)",
-      desc: "Preventive and comprehensive maintenance contracts designed to prevent laboratory downtime, including periodic optical calibration and emergency breakdown visits.",
-      features: [
-        "Scheduled Preventive Servicing",
-        "Priority Emergency SLA",
-        "Original OEM Spare Parts",
-      ],
-    },
-    {
-      title: "Laboratory Calibration & NABL Alignment",
-      desc: "Precision optical, thermal, and photometric calibration services adhering strictly to NABL quality guidelines to guarantee accurate diagnostic test reporting.",
-      features: [
-        "NABL Compliant Calibration",
-        "Official Calibration Certificates",
-        "Multi-Point Quality Benchmarking",
-      ],
-    },
-    {
-      title: "Cold-Chain Reagents & Consumables Logistics",
-      desc: "Uninterrupted, temperature-controlled delivery of high-stability CBC diluents, lysing reagents, liquid-stable biochemistry substrates, controls, and calibrators.",
-      features: [
-        "Temperature-Controlled Cold Chain",
-        "Fresh Batches with Long Shelf-Life",
-        "Fast District Delivery",
-      ],
-    },
-    {
-      title: "Complete Pathology Laboratory Setup",
-      desc: "End-to-end turnkey consultation for establishing new clinical pathology laboratories, spatial workflow optimization, instrument matching, and staff training.",
-      features: [
-        "Custom Laboratory Layout Design",
-        "Sample Workload Optimization",
-        "Expert Instrument Selection",
-      ],
-    },
-    {
-      title: "Rapid Breakdown Engineering Repair",
-      desc: "Dedicated field engineer response for urgent machine breakdown, fluidic blockages, sensor recalibration, electronic board errors, and tube replacements.",
-      features: [
-        "24-48 Hour On-Site SLA",
-        "Certified Field Engineers",
-        "On-Site Diagnostics & Repair",
-      ],
-    },
-  ];
+  /*
+   * IMPORTANT:
+   * No Firebase / Firestore is used here.
+   * All service data comes from the Admin SQLite API.
+   *
+   * There is intentionally NO hardcoded service fallback.
+   */
 
   const icons = [
-    <Microscope size={28} className="text-[#8B2748]" />,
-    <Wrench size={28} className="text-[#8B2748]" />,
-    <FileCheck size={28} className="text-[#8B2748]" />,
-    <FlaskConical size={28} className="text-[#8B2748]" />,
-    <Stethoscope size={28} className="text-[#8B2748]" />,
-    <Activity size={28} className="text-[#8B2748]" />,
+    <Microscope key="microscope" size={28} className="text-[#8B2748]" />,
+    <Wrench key="wrench" size={28} className="text-[#8B2748]" />,
+    <FileCheck key="filecheck" size={28} className="text-[#8B2748]" />,
+    <FlaskConical key="flask" size={28} className="text-[#8B2748]" />,
+    <Stethoscope key="stethoscope" size={28} className="text-[#8B2748]" />,
+    <Activity key="activity" size={28} className="text-[#8B2748]" />,
   ];
 
+  /*
+   * FAQ data is kept as existing page UI content.
+   * If your Admin API later provides FAQ data, this can be
+   * switched to the same API source without changing the UI.
+   */
   const serviceFaqs = [
     {
       question: "What types of biomedical analyzers do you sell and service?",
@@ -100,7 +54,8 @@ export default function ServicesPage() {
         "We specialize in 3-part & 5-part hematology analyzers (CBC machines), semi-automated and fully automated biochemistry analyzers, ELISA readers, electrolyte analyzers, urine strip readers, and centrifuge systems.",
     },
     {
-      question: "What is covered under your Annual Maintenance Contracts (AMC / CMC)?",
+      question:
+        "What is covered under your Annual Maintenance Contracts (AMC / CMC)?",
       answer:
         "Our AMC includes scheduled preventive servicing, optical & fluidic calibration, emergency breakdown visits, and technical hotline assistance. CMC contracts additionally include replacement of worn OEM spare parts.",
     },
@@ -118,33 +73,93 @@ export default function ServicesPage() {
 
   useEffect(() => {
     let isMounted = true;
+
     const fetchServices = async () => {
       try {
-        const snap = await getDoc(
-          doc(db, "websites", "anylabtestin", "pages", "services")
+        setLoading(true);
+
+        const response = await fetch(
+          "/api/site-data?page=services",
+          {
+            method: "GET",
+            cache: "no-store",
+            headers: {
+              "Cache-Control": "no-cache",
+            },
+          }
         );
 
-        if (snap.exists() && isMounted) {
-          const fetched = snap.data().services || [];
-          setServices(fetched.length > 0 ? fetched : fallbackServices);
-        } else if (isMounted) {
-          setServices(fallbackServices);
+        if (!response.ok) {
+          throw new Error(
+            `Services API failed with status ${response.status}`
+          );
+        }
+
+        const result = await response.json();
+
+        /*
+         * Support common API response shapes:
+         *
+         * 1. { services: [...] }
+         * 2. { pageData: { services: [...] } }
+         * 3. { data: { services: [...] } }
+         * 4. { data: { pageData: { services: [...] } } }
+         * 5. Direct array [...]
+         */
+
+        let fetchedServices = [];
+
+        if (Array.isArray(result)) {
+          fetchedServices = result;
+        } else if (Array.isArray(result?.services)) {
+          fetchedServices = result.services;
+        } else if (Array.isArray(result?.pageData?.services)) {
+          fetchedServices = result.pageData.services;
+        } else if (Array.isArray(result?.data?.services)) {
+          fetchedServices = result.data.services;
+        } else if (
+          Array.isArray(result?.data?.pageData?.services)
+        ) {
+          fetchedServices = result.data.pageData.services;
+        } else if (Array.isArray(result?.page?.services)) {
+          fetchedServices = result.page.services;
+        }
+
+        if (isMounted) {
+          setServices(
+            Array.isArray(fetchedServices)
+              ? fetchedServices
+              : []
+          );
         }
       } catch (error) {
-        console.error("Error fetching services:", error);
-        if (isMounted) setServices(fallbackServices);
+        console.error("Error fetching services from Admin API:", error);
+
+        if (isMounted) {
+          setServices([]);
+        }
       } finally {
-        if (isMounted) setLoading(false);
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     fetchServices();
+
     return () => {
       isMounted = false;
     };
   }, []);
 
-  const displayServices = services.length > 0 ? services : fallbackServices;
+  /*
+   * IMPORTANT:
+   * No static fallback is used.
+   * If Admin has no services, the grid simply has no service cards.
+   */
+  const displayServices = Array.isArray(services)
+    ? services
+    : [];
 
   const breadcrumbs = [
     { name: "Home", url: "/" },
@@ -153,7 +168,10 @@ export default function ServicesPage() {
 
   return (
     <>
-      <JsonLd breadcrumbs={breadcrumbs} faqs={serviceFaqs} />
+      <JsonLd
+        breadcrumbs={breadcrumbs}
+        faqs={serviceFaqs}
+      />
 
       {/* Banner */}
       <PageBanner
@@ -164,6 +182,7 @@ export default function ServicesPage() {
       {/* Services Grid */}
       <section className="section-padding bg-gradient-to-b from-rose-50/50 via-white to-red-50/40 relative overflow-hidden">
         <div className="absolute -top-24 left-0 w-80 h-80 rounded-full bg-rose-200/20 blur-[120px] pointer-events-none" />
+
         <div className="absolute bottom-0 right-0 w-72 h-72 rounded-full bg-red-200/20 blur-[120px] pointer-events-none" />
 
         <div className="container-custom relative z-10">
@@ -175,69 +194,123 @@ export default function ServicesPage() {
           />
 
           <div className="grid lg:grid-cols-3 md:grid-cols-2 gap-8 mt-16">
-            {loading
-              ? Array.from({ length: 6 }).map((_, index) => (
+            {loading ? (
+              Array.from({ length: 6 }).map((_, index) => (
+                <div
+                  key={index}
+                  className="bg-white rounded-[30px] p-8 border border-rose-100 shadow-md animate-pulse space-y-4"
+                >
+                  <div className="w-16 h-16 rounded-2xl bg-rose-100" />
+
+                  <div className="h-6 bg-rose-100 rounded-lg w-3/4" />
+
+                  <div className="h-16 bg-rose-100 rounded-lg w-full" />
+                </div>
+              ))
+            ) : displayServices.length > 0 ? (
+              displayServices.map((service, index) => {
+                /*
+                 * Admin data only.
+                 * No hardcoded text fallback.
+                 */
+                const title =
+                  service?.title ??
+                  service?.name ??
+                  "";
+
+                const desc =
+                  service?.desc ??
+                  service?.description ??
+                  "";
+
+                const features = Array.isArray(
+                  service?.features
+                )
+                  ? service.features
+                  : [];
+
+                /*
+                 * If Admin service object is empty,
+                 * don't render a fake/static service.
+                 */
+                if (!title && !desc) {
+                  return null;
+                }
+
+                return (
                   <div
-                    key={index}
-                    className="bg-white rounded-[30px] p-8 border border-rose-100 shadow-md animate-pulse space-y-4"
+                    key={
+                      service?.id ||
+                      service?.slug ||
+                      `${title}-${index}`
+                    }
+                    className="group bg-white rounded-[30px] p-8 border border-rose-100 shadow-[0_10px_35px_rgba(122,31,61,0.06)] hover:shadow-[0_20px_50px_rgba(122,31,61,0.14)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
                   >
-                    <div className="w-16 h-16 rounded-2xl bg-rose-100"></div>
-                    <div className="h-6 bg-rose-100 rounded-lg w-3/4"></div>
-                    <div className="h-16 bg-rose-100 rounded-lg w-full"></div>
-                  </div>
-                ))
-              : displayServices.map((service, index) => {
-                  const title = service.title || "Biomedical Service";
-                  const desc =
-                    service.desc ||
-                    service.description ||
-                    "Professional technical assistance and laboratory support provided by certified biomedical engineers.";
-                  const features = service.features || [
-                    "Certified Technical Experts",
-                    "Fast Service SLA",
-                    "Original OEM Components",
-                  ];
+                    <div>
+                      {/* Icon */}
+                      <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-100 to-red-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                        {icons[index % icons.length]}
+                      </div>
 
-                  return (
-                    <div
-                      key={index}
-                      className="group bg-white rounded-[30px] p-8 border border-rose-100 shadow-[0_10px_35px_rgba(122,31,61,0.06)] hover:shadow-[0_20px_50px_rgba(122,31,61,0.14)] hover:-translate-y-1.5 transition-all duration-300 flex flex-col justify-between"
-                    >
-                      <div>
-                        {/* Icon */}
-                        <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-rose-100 to-red-100 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                          {icons[index % icons.length]}
-                        </div>
-
-                        {/* Title */}
+                      {/* Title */}
+                      {title && (
                         <h3 className="text-xl font-bold text-slate-900 group-hover:text-[#8B2748] transition-colors leading-snug">
                           {title}
                         </h3>
+                      )}
 
-                        {/* Description */}
+                      {/* Description */}
+                      {desc && (
                         <p className="text-slate-600 mt-3 text-sm leading-relaxed">
                           {desc}
                         </p>
+                      )}
 
-                        {/* Features Bullet List */}
+                      {/* Features */}
+                      {features.length > 0 && (
                         <div className="mt-6 pt-5 border-t border-rose-100 space-y-2">
-                          {features.map((feat, fIdx) => (
-                            <div
-                              key={fIdx}
-                              className="flex items-center gap-2 text-xs font-semibold text-slate-700"
-                            >
-                              <CheckCircle2
-                                size={14}
-                                className="text-[#8B2748] shrink-0"
-                              />
-                              <span>{feat}</span>
-                            </div>
-                          ))}
+                          {features.map((feat, fIdx) => {
+                            if (
+                              feat === null ||
+                              feat === undefined ||
+                              feat === ""
+                            ) {
+                              return null;
+                            }
+
+                            return (
+                              <div
+                                key={fIdx}
+                                className="flex items-center gap-2 text-xs font-semibold text-slate-700"
+                              >
+                                <CheckCircle2
+                                  size={14}
+                                  className="text-[#8B2748] shrink-0"
+                                />
+
+                                <span>{String(feat)}</span>
+                              </div>
+                            );
+                          })}
                         </div>
-                      </div>
+                      )}
                     </div>
-                  );
-                })}
+                  </div>
+                );
+              })
+            ) : (
+              /*
+               * No static fallback service data.
+               * Admin API returned no services.
+               */
+              <div className="lg:col-span-3 md:col-span-2 flex items-center justify-center py-16">
+                <div className="text-center">
+                  <p className="text-slate-500 text-sm">
+                    No services are currently available.
+                  </p>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </section>
@@ -250,9 +323,11 @@ export default function ServicesPage() {
               <Award size={16} />
               Service Excellence Guarantee
             </span>
+
             <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
               Why Laboratories Trust Raj Biosis Engineering
             </h2>
+
             <p className="text-slate-300 text-sm mt-3 leading-relaxed">
               We stand behind our services with measurable SLA guarantees and expert biomedical technical standards.
             </p>
@@ -260,30 +335,45 @@ export default function ServicesPage() {
 
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white/5 border border-white/10 p-7 rounded-3xl">
-              <Clock className="text-rose-400 mb-4" size={28} />
+              <Clock
+                className="text-rose-400 mb-4"
+                size={28}
+              />
+
               <h4 className="text-lg font-bold text-white">
                 24-48 Hour Response SLA
               </h4>
+
               <p className="text-slate-300 text-xs mt-2 leading-relaxed">
                 Dedicated district technical teams assigned to handle urgent breakdown support and urgent spare replacements.
               </p>
             </div>
 
             <div className="bg-white/5 border border-white/10 p-7 rounded-3xl">
-              <ShieldCheck className="text-rose-400 mb-4" size={28} />
+              <ShieldCheck
+                className="text-rose-400 mb-4"
+                size={28}
+              />
+
               <h4 className="text-lg font-bold text-white">
                 Calibrated Accuracy
               </h4>
+
               <p className="text-slate-300 text-xs mt-2 leading-relaxed">
                 Multi-point photometric and electronic calibration using certified control standards adhering to NABL guidelines.
               </p>
             </div>
 
             <div className="bg-white/5 border border-white/10 p-7 rounded-3xl">
-              <Truck className="text-rose-400 mb-4" size={28} />
+              <Truck
+                className="text-rose-400 mb-4"
+                size={28}
+              />
+
               <h4 className="text-lg font-bold text-white">
                 Cold Chain Logistics
               </h4>
+
               <p className="text-slate-300 text-xs mt-2 leading-relaxed">
                 Temperature-controlled transport for diagnostic liquid stable reagents and sensitive test controls.
               </p>
@@ -327,9 +417,11 @@ export default function ServicesPage() {
                 <span className="text-5xl font-extrabold bg-gradient-to-r from-rose-300 via-rose-400 to-red-400 bg-clip-text text-transparent">
                   {item.step}
                 </span>
+
                 <h3 className="text-xl font-bold mt-4 text-[#7A1F3D]">
                   {item.title}
                 </h3>
+
                 <p className="text-slate-600 mt-3 text-sm leading-relaxed">
                   {item.desc}
                 </p>
@@ -347,6 +439,7 @@ export default function ServicesPage() {
               <HelpCircle size={15} />
               Frequently Asked Questions
             </span>
+
             <h2 className="text-3xl font-extrabold text-slate-900">
               Biomedical Service & AMC Queries
             </h2>
@@ -362,8 +455,10 @@ export default function ServicesPage() {
                   <span className="w-6 h-6 rounded-full bg-rose-100 text-[#8B2748] text-xs flex items-center justify-center font-extrabold shrink-0">
                     Q
                   </span>
+
                   {faq.question}
                 </h4>
+
                 <p className="text-slate-600 text-sm mt-3 pl-8 leading-relaxed">
                   {faq.answer}
                 </p>

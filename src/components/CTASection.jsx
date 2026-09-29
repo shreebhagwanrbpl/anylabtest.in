@@ -13,6 +13,10 @@ export default function CTASection({ city }) {
     "products",
     "contact",
     "items",
+    "category",
+    "brand",
+    "laboratory-equipment",
+    "api",
     "enquiry",
   ];
 
@@ -22,7 +26,7 @@ export default function CTASection({ city }) {
 
   const urlDistrict =
     pathParts.length > 0 &&
-      !staticRoutes.includes(pathParts[0])
+      !staticRoutes.includes(pathParts[0].toLowerCase())
       ? pathParts[0]
       : "";
 

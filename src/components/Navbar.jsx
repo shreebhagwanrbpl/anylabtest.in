@@ -18,13 +18,19 @@ export default function Navbar() {
   const staticRoutes = [
     "about",
     "services",
-    "items",
+    "products",
     "contact",
+    "items",
+    "category",
+    "brand",
+    "laboratory-equipment",
+    "api",
+    "enquiry",
   ];
 
   const district =
     pathParts.length > 0 &&
-      !staticRoutes.includes(pathParts[0])
+      !staticRoutes.includes(pathParts[0].toLowerCase())
       ? pathParts[0]
       : "";
 

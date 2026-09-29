@@ -46,4 +46,4 @@ export default async function ProductsPage({ district = null, city = null }) {
       city={city}
     />
   );
-}
+}
