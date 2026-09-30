@@ -3,7 +3,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight,PhoneCall, } from "lucide-react";
+import { ArrowRight, PhoneCall, } from "lucide-react";
 
 export default function CTASection({ city }) {
   const pathname = usePathname();
@@ -85,7 +85,7 @@ export default function CTASection({ city }) {
             {/* Right Card */}
             <div className="flex lg:justify-end">
               <div className="bg-white rounded-[30px] p-8 max-w-md w-full shadow-[0_20px_60px_rgba(0,0,0,0.15)] border border-rose-100">
-            <div className="w-16 h-16 rounded-2l bg-gradient-to-br from-rose-100 to-red-100 text-rose-700 flex items-center justify-center mb-6">
+                <div className="w-16 h-16 rounded-2l bg-gradient-to-br from-rose-100 to-red-100 text-rose-700 flex items-center justify-center mb-6">
                   <PhoneCall size={30} />
                 </div>
 
@@ -111,7 +111,7 @@ export default function CTASection({ city }) {
 
                   <a
                     href="tel:+919876543210"
-                    className="border-2 border-[#8B2748] text-[#8B2748] px-6 py-4 rounded-2xl font-semibold hover:bg-[#8B2748] hover:text-white transition-all duration-300 text-center"
+                    className="border-2 border-[#8B2748] !text-[#8B2748] px-6 py-4 rounded-2xl font-semibold hover:bg-[#8B2748] hover:text-white transition-all duration-300 text-center"
                   >
                     Call Now
                   </a>
