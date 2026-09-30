@@ -1,9 +1,14 @@
 import ProductDetails from "../../../items/[slug]/ProductDetails";
+import { getProductBySlug } from "@/lib/data-fetcher-server";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
   const { slug, district } = await params;
+  const product = await getProductBySlug(slug);
 
-  const productName = slug
+  const productName = product?.title || slug
     ?.replace(/-/g, " ")
     ?.replace(/\b\w/g, (c) => c.toUpperCase());
 
@@ -20,7 +25,6 @@ export async function generateMetadata({ params }) {
   return {
     title,
     description,
-
     keywords: [
       `${productName} in ${districtName}`,
       `${productName} Supplier ${districtName}`,
@@ -35,11 +39,9 @@ export async function generateMetadata({ params }) {
       `Diagnostic Machines ${districtName}`,
       "Raj Biosis",
     ],
-
     alternates: {
       canonical: `https://anylabtest.in/items/${slug}`,
     },
-
     openGraph: {
       title,
       description,
@@ -48,13 +50,11 @@ export async function generateMetadata({ params }) {
       type: "website",
       locale: "en_IN",
     },
-
     twitter: {
       card: "summary_large_image",
       title,
       description,
     },
-
     robots: {
       index: true,
       follow: true,
@@ -66,18 +66,19 @@ export async function generateMetadata({ params }) {
         "max-snippet": -1,
       },
     },
-
     metadataBase: new URL("https://anylabtest.in"),
   };
 }
 
 export default async function Page({ params }) {
   const { slug, district } = await params;
+  const product = await getProductBySlug(slug);
 
   return (
     <ProductDetails
       slug={slug}
       district={district}
+      initialProduct={product}
     />
   );
 }

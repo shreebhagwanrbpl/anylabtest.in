@@ -1,12 +1,15 @@
 "use client";
 
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, PhoneCall, } from "lucide-react";
+import { ArrowRight, PhoneCall } from "lucide-react";
 
 export default function CTASection({ city }) {
   const pathname = usePathname();
+  const [phoneNumber, setPhoneNumber] = useState("");
+
   const staticRoutes = [
     "about",
     "services",
@@ -20,7 +23,7 @@ export default function CTASection({ city }) {
     "enquiry",
   ];
 
-  const pathParts = pathname
+  const pathParts = (pathname || "")
     .split("/")
     .filter(Boolean);
 
@@ -43,6 +46,29 @@ export default function CTASection({ city }) {
 
     return `/${districtSlug}${path}`;
   };
+
+  useEffect(() => {
+    fetch(`/api/site-data?page=contact&_t=${Date.now()}`, {
+      cache: "no-store",
+      headers: { "Cache-Control": "no-cache" },
+    })
+      .then((r) => r.json())
+      .then((d) => {
+        const info = d?.contactInfo || [];
+        const phoneField = info.find((x) =>
+          ["phone", "phone number", "mobile", "mobile number"].some(
+            (l) => x.label?.toLowerCase() === l
+          )
+        );
+        if (phoneField?.value) {
+          const val = Array.isArray(phoneField.value)
+            ? phoneField.value[0]
+            : String(phoneField.value).split(/[\n,]+/)[0];
+          setPhoneNumber(String(val).trim());
+        }
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <section className="section-padding bg-gradient-to-b from-rose-50 via-white to-red-50">
@@ -79,7 +105,6 @@ export default function CTASection({ city }) {
               <p className="mt-6 text-white/85 text-lg leading-8 max-w-xl">
                 Get in touch with Raj Biosis for certified 3-Part & 5-Part CBC machines, biochemistry analyzers, cold-chain reagents, and guaranteed 24/7 engineer support.
               </p>
-
             </div>
 
             {/* Right Card */}
@@ -98,7 +123,6 @@ export default function CTASection({ city }) {
                 </p>
 
                 <div className="flex flex-col sm:flex-row gap-4 mt-8">
-
                   <Link
                     href={makeLink("/contact")}
                     className="flex-1"
@@ -110,22 +134,16 @@ export default function CTASection({ city }) {
                   </Link>
 
                   <a
-                    href="tel:+919876543210"
-                    className="border-2 border-[#8B2748] !text-[#8B2748] px-6 py-4 rounded-2xl font-semibold hover:bg-[#8B2748] hover:text-white transition-all duration-300 text-center"
+                    href={phoneNumber ? `tel:${phoneNumber.replace(/\s+/g, "")}` : makeLink("/contact")}
+                    className="border-2 border-[#8B2748] !text-[#8B2748] px-6 py-4 rounded-2xl font-semibold hover:bg-[#8B2748] hover:text-white transition-all duration-300 text-center flex items-center justify-center"
                   >
                     Call Now
                   </a>
-
                 </div>
-
               </div>
-
             </div>
-
           </div>
-
         </motion.div>
-
       </div>
     </section>
   );

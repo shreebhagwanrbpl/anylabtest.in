@@ -30,7 +30,17 @@ export default function HeroSection({ city }) {
     button2Text: "",
   });
 
-  useEffect(() => { fetch("/api/site-data?page=home", {cache:"no-store"}).then(r=>r.json()).then(d=>{ if(d && Object.keys(d).length) setHeroData(d); }).catch(console.error).finally(()=>setLoading(false)); }, []);
+  useEffect(() => {
+    fetch(`/api/site-data?page=home&_t=${Date.now()}`, { cache: "no-store", headers: { "Cache-Control": "no-cache" } })
+      .then((r) => r.json())
+      .then((d) => {
+        if (d && typeof d === "object" && Object.keys(d).length) {
+          setHeroData(d);
+        }
+      })
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
   // District Routing Helper
   const districtSlug = city ? city.toLowerCase().replace(/\s+/g, "-") : "";

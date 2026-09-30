@@ -14,6 +14,9 @@ import {
   Truck,
 } from "lucide-react";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export async function generateMetadata() {
   const title = "About Raj Biosis | India's Premier Biomedical & Diagnostic Equipment Partner";
   const description =

@@ -138,7 +138,16 @@ export default function ContactPage() {
 
     loadDistrict();
   }, [currentDistrict]);
-  useEffect(() => { fetch("/api/site-data?page=contact", { cache: "no-store" }).then(r => r.json()).then(d => setContactInfo(d?.contactInfo || [])).catch(console.error).finally(() => setLoading(false)); }, []);
+  useEffect(() => {
+    fetch(`/api/site-data?page=contact&_t=${Date.now()}`, {
+      cache: "no-store",
+      headers: { "Cache-Control": "no-cache" },
+    })
+      .then((r) => r.json())
+      .then((d) => setContactInfo(d?.contactInfo || []))
+      .catch(console.error)
+      .finally(() => setLoading(false));
+  }, []);
 
   const getContactField = (labels) => {
     const found = contactInfo.find(
@@ -152,18 +161,19 @@ export default function ContactPage() {
   const address = getContactField(["address", "office address", "address/office address"]);
   const hours = getContactField(["working hours", "hours", "work hours"]);
 
-  const defaultAddress = "F-4, 1st Floor, Plot No. 16, D-Block Tagor Nagar, on Ajmer-Delhi, 200 Feet Bypass Rd, Jaipur, Rajasthan 302021";
-
   const dynamicAddress =
     districtData?.district && districtData?.state
       ? `${districtData.district}, ${districtData.state}, India`
-      : (address || defaultAddress);
+      : (address || "");
 
   let phoneValues = [];
   if (Array.isArray(phone)) {
-    phoneValues = phone.map(p => String(p).trim());
+    phoneValues = phone.map((p) => String(p).trim()).filter(Boolean);
   } else if (phone !== null && phone !== undefined && phone !== "") {
-    phoneValues = String(phone).split(/[\n,]+/).map(p => p.trim());
+    phoneValues = String(phone)
+      .split(/[\n,]+/)
+      .map((p) => p.trim())
+      .filter(Boolean);
   }
 
   const mapAddress = encodeURIComponent(

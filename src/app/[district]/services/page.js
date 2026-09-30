@@ -1,7 +1,9 @@
 import ServicesPage from "@/app/services/page";
 
-export default async function Page({ params }) {
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
+export default async function Page({ params }) {
   const { district = "jaipur" } = await params;
 
   const city = district

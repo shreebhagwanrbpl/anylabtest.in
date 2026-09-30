@@ -1,17 +1,12 @@
-import { getBrandBySlug, getAllBrands } from "@/lib/data-fetcher-server";
+import { getBrandBySlug } from "@/lib/data-fetcher-server";
 import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
 import ProductCard from "@/components/ProductCard";
 import JsonLd from "@/components/JsonLd";
 import CTASection from "@/components/CTASection";
-import { ShieldCheck, Award, Wrench } from "lucide-react";
 
-export async function generateStaticParams() {
-  const brands = await getAllBrands();
-  // Prerender top 50 brands at build time for fast Cloud Build deployments.
-  // Remaining brands are rendered on demand.
-  return brands.slice(0, 50).map((b) => ({ slug: b.slug }));
-}
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

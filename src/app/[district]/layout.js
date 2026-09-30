@@ -1,11 +1,5 @@
-import { fetchDistrictsList } from "@/lib/data-fetcher-server";
-
-export async function generateStaticParams() {
-  const districts = await fetchDistrictsList();
-  // Prerender top 30 districts at build time for fast Cloud Build deployments.
-  // Remaining districts will be dynamically rendered on demand.
-  return districts.slice(0, 30).map((d) => ({ district: d.slug }));
-}
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
   const { district = "jaipur" } = await params;

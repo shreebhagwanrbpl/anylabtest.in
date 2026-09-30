@@ -1,4 +1,38 @@
 import { NextResponse } from "next/server";
-import { adminApiFetch } from "@/lib/admin-api";
-export const dynamic="force-dynamic";
-export async function POST(req){ try{ const body=await req.json(); const data=await adminApiFetch("/product-query",{method:"POST",body:JSON.stringify(body)}); return NextResponse.json(data); }catch(e){ console.error(e); return NextResponse.json({success:false,error:e.message},{status:500}); } }
+import { postLiveFirestore } from "@/lib/admin-api";
+import { getWebsiteId, normalizeDomainId } from "@/lib/catalog-utils";
+
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export async function POST(req) {
+  try {
+    const body = await req.json();
+    const hostHeader = req.headers.get("x-forwarded-host") || req.headers.get("host") || "";
+
+    const websiteId = body.websiteId
+      ? normalizeDomainId(body.websiteId)
+      : getWebsiteId(hostHeader);
+
+    const firestorePath = `websitesQueries/${websiteId}/productQueries`;
+
+    const payload = {
+      ...body,
+      websiteId,
+      createdAt: body.createdAt || new Date().toISOString(),
+    };
+
+    const responseData = await postLiveFirestore(firestorePath, payload, "add");
+
+    return NextResponse.json({
+      success: true,
+      data: responseData,
+    });
+  } catch (e) {
+    console.error("[api/product-query] Error:", e);
+    return NextResponse.json(
+      { success: false, error: e.message || "Failed to submit product inquiry" },
+      { status: 500 }
+    );
+  }
+}

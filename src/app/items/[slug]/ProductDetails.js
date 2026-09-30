@@ -15,7 +15,8 @@ import {
     FaLink,
 } from "react-icons/fa";
 
-import { fetchFullCatalog } from "@/lib/data-fetcher";
+import { fetchFullCatalog, fetchContactData } from "@/lib/data-fetcher";
+import { resolveImageUrl } from "@/lib/catalog-utils";
 import { Download } from "lucide-react";
 const makeSlug = (text = "") =>
     text
@@ -23,10 +24,12 @@ const makeSlug = (text = "") =>
         .trim()
         .replace(/[^a-z0-9\s-]/g, "")
         .replace(/\s+/g, "-");
-export default function ProductDetails({ slug }) {
-    const [product, setProduct] = useState(null);
+export default function ProductDetails({ slug, district = "", initialProduct = null }) {
+    const [product, setProduct] = useState(initialProduct);
     const [imageLoaded, setImageLoaded] = useState(false);
-    const [selectedImage, setSelectedImage] = useState("");
+    const [selectedImage, setSelectedImage] = useState(
+        initialProduct?.images?.[0] || initialProduct?.image || ""
+    );
     const [selectedMedia, setSelectedMedia] = useState("image");
     const [showShare, setShowShare] = useState(false);
 
@@ -43,21 +46,21 @@ export default function ProductDetails({ slug }) {
     const [downloading, setDownloading] = useState(false);
     const [brochureImage, setBrochureImage] = useState("");
     const [contactData, setContactData] = useState({
-        phone: "+91 9983123469\n+91 9983333489",
-        email: "rajbiosis@yahoo.in",
-        address: "F-4, 1st Floor, Plot No. 16, D-Block Tagor Nagar, on Ajmer-Delhi, 200 Feet Bypass Rd, Jaipur, Rajasthan 302021"
+        phone: "",
+        email: "",
+        address: ""
     });
 
     const pathname = usePathname();
 
-    const pathParts = pathname
+    const pathParts = (pathname || "")
         .split("/")
         .filter(Boolean);
 
-    const city =
-        pathParts.length > 1 && !["about", "services", "items", "contact"].includes(pathParts[0])
+    const city = district ||
+        (pathParts.length > 1 && !["about", "services", "items", "contact"].includes(pathParts[0]?.toLowerCase())
             ? pathParts[0]
-            : "India";
+            : "India");
 
     const cityName =
         city.charAt(0).toUpperCase() +
@@ -66,9 +69,19 @@ export default function ProductDetails({ slug }) {
     useEffect(() => {
         const loadProduct = async () => {
             try {
+                if (initialProduct) {
+                    setProduct(initialProduct);
+                    if (initialProduct.images?.length > 0) {
+                        setSelectedImage(initialProduct.images[0]);
+                    } else if (initialProduct.image) {
+                        setSelectedImage(initialProduct.image);
+                    }
+                    return;
+                }
+
                 const allProducts = await fetchFullCatalog();
                 const found = allProducts.find(
-                    (p) => p.slug === slug
+                    (p) => p.slug === slug || makeSlug(p.title || p.name) === slug
                 );
                 setProduct(found || null);
 
@@ -87,18 +100,24 @@ export default function ProductDetails({ slug }) {
 
         const loadContact = async () => {
             try {
-                const snap = await getDoc(
-                    doc(db, "websites", "anylabtestin", "pages", "contact")
-                );
-                if (snap.exists()) {
-                    const info = snap.data().contactInfo || [];
-                    const phoneVal = info.find(x => x.label === "Phone Number")?.value || "";
-                    const emailVal = info.find(x => x.label === "Email Address")?.value || "";
-                    const addressVal = info.find(x => x.label === "Office Address")?.value || "";
+                const data = await fetchContactData();
+                if (data) {
+                    const info = data.contactInfo || [];
+                    const phoneField = info.find(x => ["phone", "phone number", "mobile", "mobile number"].some(l => x.label?.toLowerCase() === l));
+                    const emailField = info.find(x => ["email", "email address"].some(l => x.label?.toLowerCase() === l));
+                    const addressField = info.find(x => ["address", "office address", "address/office address"].some(l => x.label?.toLowerCase() === l));
+                    
+                    let resolvedPhone = "";
+                    if (Array.isArray(phoneField?.value)) {
+                        resolvedPhone = phoneField.value.join(", ");
+                    } else if (phoneField?.value) {
+                        resolvedPhone = String(phoneField.value);
+                    }
+
                     setContactData({
-                        phone: phoneVal || "+91 9983123469\n+91 9983333489",
-                        email: emailVal || "rajbiosis@yahoo.in",
-                        address: addressVal || "F-4, 1st Floor, Plot No. 16, D-Block Tagor Nagar, on Ajmer-Delhi, 200 Feet Bypass Rd, Jaipur, Rajasthan 302021"
+                        phone: resolvedPhone,
+                        email: emailField?.value ? String(emailField.value) : "",
+                        address: addressField?.value ? String(addressField.value) : ""
                     });
                 }
             } catch (err) {

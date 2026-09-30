@@ -11,7 +11,7 @@ export default function Navbar() {
 
   const pathname = usePathname();
 
-  const pathParts = pathname
+  const pathParts = (pathname || "")
     .split("/")
     .filter(Boolean);
 

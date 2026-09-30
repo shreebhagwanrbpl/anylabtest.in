@@ -1,12 +1,9 @@
 import ProductDetails from "./ProductDetails";
-import { getProductBySlug, fetchFullCatalog } from "@/lib/data-fetcher-server";
+import { getProductBySlug } from "@/lib/data-fetcher-server";
+import { resolveImageUrl } from "@/lib/catalog-utils";
 
-export async function generateStaticParams() {
-  const products = await fetchFullCatalog();
-  // Prerender top 100 items at build time for fast Cloud Build deployments.
-  // Remaining items are rendered on demand.
-  return products.slice(0, 100).map((p) => ({ slug: p.slug }));
-}
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
@@ -26,7 +23,8 @@ export async function generateMetadata({ params }) {
     : `Buy ${productName} by ${brandName} at best price in India. Certified supplier, dealer and distributor of ${categoryName} for clinical laboratories and hospitals.`;
 
   const url = `https://anylabtest.in/items/${slug}`;
-  const imageUrl = product?.image || product?.images?.[0] || "https://anylabtest.in/logo.png";
+  const rawImage = product?.image || product?.images?.[0] || "https://anylabtest.in/logo.png";
+  const imageUrl = resolveImageUrl(rawImage) || "https://anylabtest.in/logo.png";
 
   return {
     title,
@@ -94,5 +92,6 @@ export async function generateMetadata({ params }) {
 
 export default async function Page({ params }) {
   const { slug } = await params;
-  return <ProductDetails slug={slug} />;
+  const product = await getProductBySlug(slug);
+  return <ProductDetails slug={slug} initialProduct={product} />;
 }

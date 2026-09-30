@@ -1,5 +1,8 @@
 import { fetchFullCatalog, getAllCategories, getAllBrands, getDistricts } from "@/lib/data-fetcher-server";
 
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 export default async function sitemap() {
   const baseUrl = "https://anylabtest.in";
   const urls = [];

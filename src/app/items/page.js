@@ -1,7 +1,8 @@
 import { fetchFullCatalog } from "@/lib/data-fetcher-server";
 import ProductsClient from "./ProductsClient";
 
-export const revalidate = 3600; // Revalidate cache every hour
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ searchParams }) {
   const title = "Biomedical & Laboratory Equipment Catalog | Raj Biosis India";
@@ -36,7 +37,7 @@ export async function generateMetadata({ searchParams }) {
 }
 
 export default async function ProductsPage({ district = null, city = null }) {
-  // Fetch full catalog from server cache
+  // Fetch full catalog live from VPS
   const allProducts = await fetchFullCatalog();
 
   return (

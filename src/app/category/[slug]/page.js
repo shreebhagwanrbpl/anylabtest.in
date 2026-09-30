@@ -1,16 +1,13 @@
-import { getCategoryBySlug, getAllCategories } from "@/lib/data-fetcher-server";
+import { getCategoryBySlug } from "@/lib/data-fetcher-server";
 import { notFound } from "next/navigation";
 import PageBanner from "@/components/PageBanner";
 import ProductCard from "@/components/ProductCard";
 import JsonLd from "@/components/JsonLd";
 import CTASection from "@/components/CTASection";
-import Link from "next/link";
 import { ShieldCheck, Microscope, Award, CheckCircle2 } from "lucide-react";
 
-export async function generateStaticParams() {
-  const categories = await getAllCategories();
-  return categories.map((cat) => ({ slug: cat.slug }));
-}
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;

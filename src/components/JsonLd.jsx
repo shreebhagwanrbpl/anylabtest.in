@@ -15,6 +15,9 @@ export default function JsonLd({
   product = null,
   faqs = [],
   breadcrumbs = [],
+  email = "",
+  phone = "",
+  address = "",
 }) {
   const baseUrl = "https://anylabtest.in";
   const locationName = city ? `${city}, India` : "India";
@@ -30,7 +33,8 @@ export default function JsonLd({
     logo: `${baseUrl}/logo.png`,
     image: `${baseUrl}/logo.png`,
     description: `Raj Biosis is a leading biomedical and laboratory equipment supplier in ${locationName}, offering CBC Machines, Hematology Analyzers, Biochemistry Analyzers, Reagents, and Diagnostic Equipment.`,
-    email: "contact@anylabtest.in",
+    ...(email ? { email } : {}),
+    ...(phone ? { telephone: phone } : {}),
     areaServed: city
       ? [
           {
@@ -48,6 +52,7 @@ export default function JsonLd({
         },
     address: {
       "@type": "PostalAddress",
+      streetAddress: address || undefined,
       addressLocality: city || "Jaipur",
       addressRegion: "Rajasthan",
       addressCountry: "IN",

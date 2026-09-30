@@ -79,12 +79,13 @@ export default function ServicesPage() {
         setLoading(true);
 
         const response = await fetch(
-          "/api/site-data?page=services",
+          `/api/site-data?page=services&_t=${Date.now()}`,
           {
             method: "GET",
             cache: "no-store",
             headers: {
-              "Cache-Control": "no-cache",
+              "Cache-Control": "no-cache, no-store, must-revalidate",
+              Pragma: "no-cache",
             },
           }
         );
@@ -174,10 +175,7 @@ export default function ServicesPage() {
       />
 
       {/* Banner */}
-      <PageBanner
-        title="Biomedical & Technical Services"
-        subtitle="Comprehensive laboratory equipment sales, calibration, AMC contracts, reagent logistics, and engineer support across India."
-      />
+
 
       {/* Services Grid */}
       <section className="section-padding bg-gradient-to-b from-rose-50/50 via-white to-red-50/40 relative overflow-hidden">
