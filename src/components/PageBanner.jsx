@@ -7,52 +7,54 @@ export default function PageBanner({
   subtitle,
 }) {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-rose-50 via-white to-red-50 py-28 lg:py-36">
+    <section className="relative overflow-hidden bg-gradient-to-br from-rose-50 via-white to-red-50 py-12 sm:py-14 lg:py-16">
 
       {/* Background Blur Effects */}
-      <div className="absolute -top-20 -left-20 w-80 h-80 bg-rose-300/25 rounded-full blur-[120px]" />
+      <div className="absolute -top-20 -left-20 w-80 h-80 bg-rose-300/25 rounded-full blur-[120px] pointer-events-none" />
 
-      <div className="absolute bottom-0 right-0 w-72 h-72 bg-red-300/20 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 right-0 w-72 h-72 bg-red-300/20 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="container-custom relative z-10">
 
         <motion.div
           initial={{
             opacity: 0,
-            y: 50,
+            y: 30,
           }}
           animate={{
             opacity: 1,
             y: 0,
           }}
           transition={{
-            duration: 0.6,
+            duration: 0.5,
           }}
           className="text-center max-w-4xl mx-auto"
         >
 
           {/* Badge */}
-          <span className="inline-flex items-center px-5 py-2 rounded-full bg-gradient-to-r from-rose-100 to-red-100 border border-rose-200 text-rose-700 font-semibold text-sm shadow-sm mb-6">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full bg-gradient-to-r from-rose-100 to-red-100 border border-rose-200 text-[#7A1F3D] font-semibold text-xs sm:text-sm shadow-sm mb-4">
             Premium Biomedical Solutions
           </span>
 
           {/* Title */}
-          <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight">
 
-            <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text  text-black">
+            <span className="bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52] bg-clip-text text-transparent">
               {title}
             </span>
 
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-6 text-slate-600 text-lg leading-8 max-w-2xl mx-auto">
-            {subtitle}
-          </p>
+          {subtitle && (
+            <p className="mt-3.5 text-slate-600 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
+              {subtitle}
+            </p>
+          )}
 
           {/* Decorative Line */}
-          <div className="mt-8 flex justify-center">
-            <div className="h-1 w-32 rounded-full bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52]"></div>
+          <div className="mt-5 flex justify-center">
+            <div className="h-1 w-24 rounded-full bg-gradient-to-r from-[#7A1F3D] via-[#8B2748] to-[#A52F52]"></div>
           </div>
 
         </motion.div>

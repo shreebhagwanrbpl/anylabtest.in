@@ -54,7 +54,7 @@ export function getWebsiteId(explicitHost) {
   return DEFAULT_WEBSITE_ID;
 }
 
-export const WEBSITE_ID = getWebsiteId();
+export const WEBSITE_ID = "anylabtestin";
 export const COMPANY_ID =
   process.env.COMPANY_ID || process.env.SQLITE_COMPANY_ID || "rajbiosis";
 
